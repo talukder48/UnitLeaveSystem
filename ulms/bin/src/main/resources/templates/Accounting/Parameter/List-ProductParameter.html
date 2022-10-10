@@ -1,0 +1,69 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ Accounting Product List</title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+		
+			
+			<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Product Ledger </h3>
+			 
+			</div>
+			<div class="container my-3 bg-light">
+			<div class="col-md-12 text-center">
+		           <a th:href="@{/addAccountingProductForm}" class="btn btn-primary">Add Product</a>
+		            <a th:href="@{/UserHome}" class="btn btn-warning">Back Home</a>
+		        </div>
+		    </div>
+			
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+						<th>Product Code</th>
+						<th>Product Name</th>
+						<th>Product Type </th>
+						<th>Activation Type</th>
+						
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product: ${productLists}">
+						<td th:text="${product.productCode}" />
+						<td th:text="${product.productName}" />
+						<td th:text="${product.productType}" />
+						<td th:text="${product.activation}" />
+						
+						<td>
+							<a th:href="@{/showUpdateAccountingProductForm(productCode=${product.productCode})}" class="btn btn-info">Update</a>
+							
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

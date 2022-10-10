@@ -1,0 +1,72 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		    <title>ULMS @Unit Leave Management System</title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+		
+			<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center" >User List</h3>
+			</div>
+			
+			<div class="container my-3 bg-light">
+		        <div class="col-md-12 text-center">
+		           <a th:href="@{/AddNewSystemUser}" class="btn btn-primary">New User</a>
+		            <a th:href="@{/UserHome}" class="btn btn-warning">Back Home</a>
+		        </div>
+		    </div>
+			
+			
+			
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+						<th>User ID</th>
+						<th>User Name</th>
+						<th>Branch</th>
+						<th>Module</th>
+						<th>Role</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user: ${UserList}">
+						<td th:text="${user.UserID}" />
+						<td th:text="${user.UserName}" />
+						<td th:text="${user.UserBranch}" />						
+						<td th:text="${user.UserModule}" />
+						<td th:text="${user.UserRole}" />
+																		
+						<td>
+							<a th:href="@{/showUpdateUserForm(UserID=${user.UserID})}" class="btn btn-info">View</a>
+							<a th:href="@{/DeleteUser/{UserID}(UserID=${user.UserID})}" class="btn btn-danger">Remove</a>
+							
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

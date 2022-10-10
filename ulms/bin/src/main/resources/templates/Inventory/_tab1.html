@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet"/>
+       <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script>
+    new gridjs.Grid({
+    	search: true,
+    	pagination: {
+    	    limit: 5
+    	  },
+    	  columns: ["Product Id ", "Product Name", "Product Type","Property Type"],
+    	  data: [
+    	    ["103", "Book", "D-Daily Goods","N-Non Sellable"],
+    	    ["104", "Pen", "D-Daily Goods","N-Non Sellable"],
+    	    ["105", "Pencil", "D-Daily Goods","N-Non Sellable"],
+    	    ["107", "Note Book", "D-Daily Goods","N-Non Sellable"],
+    	    ["108", "Stumps", "D-Daily Goods","Y- Sellable"]
+    	  ]
+    	}).render(document.getElementById("Product"));
+    
+    </script>
+    
+  </head>
+  
+  
+  
+  <body>
+    <div id="Product"></div>
+
+ 
+  </body>
+</html>

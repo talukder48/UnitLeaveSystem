@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Panacea@ Accounting System</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/Accounting">Accounting System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+            
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/UserHome}">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>         
+            </ul>             
+           </div>
+           
+           <div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Parameter</button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">			  
+			   <li class="nav-item"> <a class="nav-link" th:href="@{/ProductParameterList}">Product Setup</a> </li>                
+               <li class="nav-item"> <a class="nav-link" th:href="@{/LedgerParameterList}">General Ledger</a> </li>                
+			   <li class="nav-item"> <a class="nav-link" th:href="@{/FeesAndChargesList}">Fees & Charges </a></li>
+               <li class="nav-item"> <a class="nav-link" th:href="@{/ProductLedgerMappingList}">Product Mapping</a></li>                                
+			  </ul>
+			</div>
+			
+           
+           <div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Entry Pages</button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+			     <li class="nav-item"> <a class="nav-link" th:href="@{/AccountsCreationForm}">Account Creation</a> </li>
+                  <li class="nav-item"><a class="nav-link" th:href="@{/VoucherEntryFormNew}">Voucher  Entry</a></li>
+			  </ul>
+			</div>
+			
+			
+			 <div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Authorization</button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                 <li class="nav-item"> <a class="nav-link" th:href="@{/TransactionAuthorization}">Transaction</a></li>
+			  </ul>
+			</div>
+			
+           
+           
+            <div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Accounting Reports</button>
+			   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">			   
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportProductList.do}">Voucher Print </a> </li>			    
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportPurchaseList.do}">CashBook </a> </li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportDisburseList.do}">GL Register </a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportDisburseList.do}">Accounts List</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportProductStatement.do}">GL Statement</a> </li>			    
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportProductStatement.do}">Account Statement</a>  </li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/ReportDisburseList.do}">Financial Statement</a></li>
+			  </ul>
+			</div>
+			
+			
+			
+			<div class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+			    Profile
+			  </button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+			     <li class="nav-item">
+                   <a class="nav-link" th:href="@{/AccountsInfo(UserId=${session.UserId})}">User Info</a>
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" th:href="@{/LogOut}">Logout</a>
+                </li>
+			  </ul>
+			</div>
+			
+			
+			
+        
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs mt-1" id="myTabs">
+                <li class="nav-item"><a href="#tab1" data-url="/tab1" class="nav-link active">Notice Board</a></li>
+                <li class="nav-item"><a href="#tab2" data-url="/tab2" class="nav-link">List of Fees & Charges</a></li>
+                <li class="nav-item"><a href="#tab3" data-url="/tab3" class="nav-link">List of Products</a></li>
+                <li class="nav-item"><a href="#tab4" data-url="/tab4" class="nav-link">Upcoming Events</a></li>
+                <li class="nav-item"><a href="#tab5" data-url="/tab5" class="nav-link">List Of Services</a></li>
+                <li class="nav-item"><a href="#tab6" data-url="/tab6" class="nav-link">List of Users</a></li>
+                <li class="nav-item"><a href="#tab7" data-url="/tab7" class="nav-link">Chart of Managements</a></li>
+                
+            </ul>
+
+            <div class="tab-content pt-7">
+                <div class="tab-pane active" id="tab1">Active panel</div>
+                <div class="tab-pane" id="tab2"></div>
+                <div class="tab-pane" id="tab3"></div>
+                <div class="tab-pane" id="tab4"></div>
+                <div class="tab-pane" id="tab5"></div>
+                <div class="tab-pane" id="tab6"></div>
+                <div class="tab-pane" id="tab7"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<script>
+    $('#myTabs a').click(function (e) {
+        e.preventDefault();
+
+        var url = $(this).attr("data-url");
+        var href = this.hash;
+        var pane = $(this);
+
+        // ajax load from data-url
+        $(href).load(url, function (result) {
+            pane.tab('show');
+        });
+    });
+
+    // load first tab content
+    $('#tab1').load($('.nav-link.active').attr("data-url"), function (result) {
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ Accounting Transaction List</title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+		
+			<h3>Transaction Lists</h3>
+			
+			<hr/>
+			<a th:href="@{/Accounting}" class="btn btn-primary">Main Menu</a>
+			<br/><br/>
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+						<th>Transaction Branch</th>
+						<th>Transaction Date</th>
+						<th>Transaction Batch</th>	
+						<th>Remarks</th>						
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="transaction: ${TransactionList}">
+						<td th:text="${transaction.tran_branch}" />
+						<td th:text="${transaction.tran_date}" />
+						<td th:text="${transaction.tran_batch}" />
+						<td th:text="${transaction.tran_remarks}" />
+						<td>
+							<a th:href="@{/showUpdateTransactionForm(tran_branch=${transaction.tran_branch},tran_date=${transaction.tran_date},tran_batch=${transaction.tran_batch})}" class="btn btn-info">View </a>
+							<a th:href="@{/RejectTransaction(tran_branch=${transaction.tran_branch},tran_date=${transaction.tran_date},tran_batch=${transaction.tran_batch})}" class="btn btn-danger">Rejection</a>
+							
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

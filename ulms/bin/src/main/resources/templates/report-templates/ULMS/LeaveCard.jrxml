@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LeaveCard" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="29d7b6e5-c772-4c9d-856c-5029fc317f17">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<parameter name="P_LEAVEID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    r.*,
+    d.rank_description
+FROM
+    `hr_leave_register` r
+JOIN `hr_army_employee` k ON
+    (r.employee_id = k.employee_id)
+JOIN `hr_army_rank` d ON
+    (k.rank = d.rank_id)
+   where  r.leaveid= $P{P_LEAVEID} ]]>
+	</queryString>
+	<field name="leaveid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="leaveid"/>
+		<property name="com.jaspersoft.studio.field.label" value="leaveid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="apply_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apply_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="apply_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="employee_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="employee_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="end_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="leave_reason" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_reason"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_reason"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="leave_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="location"/>
+		<property name="com.jaspersoft.studio.field.label" value="location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="recomend_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recomend_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="recomend_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="recomend_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recomend_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="recomend_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="reject_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reject_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="reject_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="reject_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reject_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="reject_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="start_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="approve_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="approve_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="approve_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="approve_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="approve_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="approve_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="approved_remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="approved_remarks"/>
+		<property name="com.jaspersoft.studio.field.label" value="approved_remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="intmed_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intmed_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="intmed_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="intmed_remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intmed_remarks"/>
+		<property name="com.jaspersoft.studio.field.label" value="intmed_remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="intmedon" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intmedon"/>
+		<property name="com.jaspersoft.studio.field.label" value="intmedon"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="recomend_remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recomend_remarks"/>
+		<property name="com.jaspersoft.studio.field.label" value="recomend_remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="leave_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+	</field>
+	<field name="rank_description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rank_description"/>
+		<property name="com.jaspersoft.studio.field.label" value="rank_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_rank"/>
+	</field>
+	<group name="LeaveID" isStartNewPage="true" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{leaveid}]]></groupExpression>
+		<groupHeader>
+			<band height="68">
+				<staticText>
+					<reportElement x="19" y="9" width="510" height="30" uuid="d78a3974-0f3e-4bb8-950e-58ead73a1741"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="22" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Leave Card]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="525" height="55" uuid="2a2242df-60dd-437d-b473-d8fc246c839e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bangladesh Army]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="55" width="524" height="25" uuid="047c51b9-8564-46bb-be63-c28b8cba8d0f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jessore Cantonment]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="254" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="2" width="560" height="239" uuid="5aea4716-f6b9-4bac-8270-576e18fd0e5d"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textField>
+					<reportElement x="114" y="33" width="142" height="30" uuid="47a1cdba-80ef-43f7-aec8-92b34ad52fa4">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="051ded16-72b2-4620-b0ae-674f0877d5a9"/>
+					</reportElement>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{leaveid}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="114" y="63" width="142" height="30" uuid="52d1a410-eb2f-4624-bfe9-f89425edf699">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="840f8fde-3051-4b9e-8939-582407f0003f"/>
+					</reportElement>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="114" y="93" width="142" height="30" uuid="1434c9b8-1e80-4673-a16f-64710b743427">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85aebaf5-b376-44e3-a01a-5faf46792178"/>
+					</reportElement>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{employee_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="33" width="100" height="30" uuid="0384f0a7-c084-4d33-ac21-d6f6d66d3e7b">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="051ded16-72b2-4620-b0ae-674f0877d5a9"/>
+					</reportElement>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Leave ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="63" width="100" height="30" uuid="42e8eb96-cf0f-4bcf-8b34-cbd07af52cd7">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="840f8fde-3051-4b9e-8939-582407f0003f"/>
+					</reportElement>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Army No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="93" width="100" height="30" uuid="495ad3f1-ad7a-402f-b860-2d775f6d66a9">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85aebaf5-b376-44e3-a01a-5faf46792178"/>
+					</reportElement>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Army Name]]></text>
+				</staticText>
+				<textField pattern="M/d/yy">
+					<reportElement x="380" y="34" width="146" height="30" uuid="e018a3e9-21e1-45c1-a0a4-cf66f51599b4"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{start_date}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="280" y="34" width="100" height="30" uuid="0f070bd2-2593-4cdc-9df5-336035970099"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Start Date]]></text>
+				</staticText>
+				<textField pattern="M/d/yy">
+					<reportElement x="380" y="64" width="146" height="30" uuid="1dffa791-b4b4-4802-9326-9f90d0fafd61"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{end_date}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="280" y="64" width="100" height="30" uuid="13ec022b-a114-471c-adae-8a4cb96e8802"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[End Date]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="380" y="94" width="146" height="30" uuid="7b6e671b-9597-45e0-8b1a-c5d0356b31c8"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{recomend_remarks}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="280" y="94" width="100" height="30" uuid="a5405d4e-ffdb-4cdd-b570-5d60024f094a"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Recommendation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="380" y="124" width="146" height="30" uuid="e66f25ac-3dd7-4662-923e-e67f8ffa82bf"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{approved_remarks}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="280" y="124" width="100" height="30" uuid="7f39e7c5-6339-4b8a-921f-fc2c19b90e6f"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Approval]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="114" y="123" width="142" height="30" uuid="49fd477d-59fd-42ae-9d2c-57b11ebc8ca4"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{rank_description}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="123" width="100" height="30" uuid="94469fbc-c6ab-4b24-bd5a-6552794cb030"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Rank]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="3" width="242" height="30" uuid="6bd78f04-64e1-4498-b31a-378e66493a36"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Personal Information]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="4" width="246" height="30" uuid="5a5fefd5-ecc1-422a-b3ce-17ddf5307a17"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<text><![CDATA[Leave Information]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="116" y="187" width="410" height="30" uuid="ede940ad-9fc8-42f0-8b71-3b0ae94619a9"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{leave_reason}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="16" y="187" width="100" height="30" uuid="00f72af2-08ce-4461-aaca-3260ffdfbd39"/>
+					<box leftPadding="4">
+						<pen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Reason for Leave]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

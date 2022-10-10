@@ -1,0 +1,187 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Panacea @Inventory Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+</head>
+<body>
+
+	<div class="container">
+		<hr />
+		<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Add or Modify Army's Information</h3>
+		</div>
+		<hr />
+
+		<form th:action="@{/saveEmployee}" th:object="${Employee}" method="POST">
+		
+		<div class="row">
+				<div class="col">
+					Army No: <input type="text" th:field="*{EmployeeId}"
+						class="form-control col-8 mb-8" placeholder="Army No" />
+				</div>
+				<div class="col">
+					Army Name: <input type="text" th:field="*{EmployeeName}"
+						class="form-control col-8 mb-8" placeholder=" Name" />
+				</div>
+				<div class="col">
+					Fathe's Name: <input type="text" th:field="*{FatherName}"
+						class="form-control col-8 mb-8" placeholder="Father's Name" />
+				</div>
+				<div class="col">
+					Mother's Name: <input type="text" th:field="*{MotherName}"
+						class="form-control col-8 mb-8" placeholder="Mother's Name" />
+				</div>
+				
+			</div>
+
+			<div class="row">
+				<div class="col">
+					Rank: <select th:field="*{Rank}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${RankList}"
+							th:value="${optionType.RankId}"
+							th:text="${optionType.RankDescription}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>
+				
+				<div class="col">
+					Trade : <select th:field="*{trade}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${TradeList}"
+							th:value="${optionType.TradeId}"
+							th:text="${optionType.TradeDescription}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>
+				<div class="col">
+					Company: <select th:field="*{company}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${CompanyList}"
+							th:value="${optionType.CompanyId}"
+							th:text="${optionType.CompanyDescription}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>
+				
+				<div class="col">
+					Employee Type: <select th:field="*{empType}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${typeList}"
+							th:value="${optionType.typeKey}"
+							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>			
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					Gender: <select th:field="*{Gender}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${GenderList}"
+							th:value="${optionType.typeKey}"
+							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>
+				
+				<div class="col">
+					Blood Group : <select th:field="*{bloodGrgp}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${BloodgroupList}"
+							th:value="${optionType.typeKey}"
+							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>
+				<div class="col">
+					Date of Birth: <input type="date" th:field="*{dob}"
+						class="form-control col-8 mb-8" placeholder="DOB" />
+	
+				</div>
+				<div class="col"></div>
+										
+			</div>
+			<hr>
+			
+			<div class="row">
+				<div class="col">
+					Email Address: <input type="text" th:field="*{EmailAddress}"
+						class="form-control col-8 mb-8" placeholder="Email Address" />
+				</div>
+				<div class="col">
+					Mobile No: <input type="text" th:field="*{MobileNo}"
+						class="form-control col-8 mb-8" placeholder=" Mobile No" />
+				</div>
+				<div class="col">
+					Home District: <input type="text" th:field="*{HomeDistrict}"
+						class="form-control col-8 mb-8" placeholder="District" />
+				</div>
+				<div class="col">
+					Father's Contact: <input type="text" th:field="*{fathercontact}"
+						class="form-control col-8 mb-8" placeholder="Father's Contact" />
+				</div>
+				
+			</div>
+			
+			<div class="row">
+				
+					
+				<div class="col">
+					Living Type: <select th:field="*{livingType}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${LivingList}"
+							th:value="${optionType.typeKey}"
+							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+					</select>
+
+					
+				</div>
+				<div class="col">
+					Address: <input type="text" th:field="*{addres}"
+						class="form-control col-8 mb-8" placeholder=" Address" />
+				</div>
+				<div class="col">
+					Gurdian's Name: <input type="text" th:field="*{altnGurdianName}"
+						class="form-control col-8 mb-8" placeholder="Gurdian Name" />
+				</div>
+				<div class="col">
+					Gurdian's Contact: <input type="text" th:field="*{altnGurdianContact}"
+						class="form-control col-8 mb-8" placeholder="Gurdian's Contact" />
+				</div>
+				
+			</div>
+
+
+			<div class="row">
+			
+			</div>
+
+			<hr />
+			<br>
+
+
+			<div class="container my-3 bg-light">
+				<div class="col-md-12 text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a th:href="@{/EmployeeList}" class="btn btn-warning">Cancel</a>
+				</div>
+			</div>
+
+
+		</form>
+		<hr />
+
+	</div>
+
+
+</body>
+</html>

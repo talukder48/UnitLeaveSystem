@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet"/>
+       <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script>
+    new gridjs.Grid({
+    	search: true,
+    	pagination: {
+    	    limit: 5
+    	  },
+    	  columns: ["Product Id ", "Product Name", "Action","To Whom","No of Goods","Prices"],
+    	  data: [
+    	    ["103", "Book", "Purchase","Stock",7,1400],
+    	    ["103", "Book", "Purchase","Stock",2,600],
+    	    ["104", "Pen", "Purchase","Stock",5,130],
+    	    ["104", "Pencil", "Purchase","Stock",7,120],
+    	    ["103", "Book", "Purchase","Stock",2,500]
+    	  ]
+    	}).render(document.getElementById("PurchaseRegister"));
+    
+    </script>
+    
+  </head>
+  
+  
+  
+  <body>
+    <div id="PurchaseRegister"></div>
+
+ 
+  </body>
+</html>

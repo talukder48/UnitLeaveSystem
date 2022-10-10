@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LeaveCard" pageWidth="450" pageHeight="842" columnWidth="410" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="29d7b6e5-c772-4c9d-856c-5029fc317f17">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_LEAVEID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+    CONCAT(
+        'ARMY NO :',
+        k.employee_id,
+        '\nRANK :',
+        d.rank_description,
+        '\nNAME :',
+        k.employee_name,
+        '\nTRADE: ',
+        t.trade_description,
+        '\nLEAVE FROM :',
+        r.start_date,
+        ' UPTO ',
+        r.end_date,
+        '\nFOR HIS/HER ',
+        f.leave_description
+    ) Description,
+
+    case when r.approve_by <>'' then ' LEAVE IS GRANTED ' else ' LEAVE IS NOT GRANTED YET !!' end LEAVE_COMMENT,
+
+    r.*,
+    d.rank_description,
+    (select CONCAT('Recomended By\n',m.user_name) from user_master m where m.userid=r.recomend_by) Recomended_BY,
+    (select CONCAT('Approved By\n',m.user_name) from user_master m where m.userid=r.approve_by) Approved_BY,k.mobile_no
+FROM
+    `hr_leave_register` r
+JOIN `hr_army_employee` k ON
+    (r.employee_id = k.employee_id)
+JOIN `hr_army_rank` d ON
+    (k.rank = d.rank_id)
+JOIN `hr_army_trade` t ON
+    (k.trade = t.trade_id)
+JOIN `hr_leave_description` f ON
+    (f.leave_code = r.leave_type)
+WHERE
+    r.leaveid = $P{P_LEAVEID}]]>
+	</queryString>
+	<field name="Description" class="java.lang.String"/>
+	<field name="LEAVE_COMMENT" class="java.lang.String"/>
+	<field name="leaveid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="leaveid"/>
+		<property name="com.jaspersoft.studio.field.label" value="leaveid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apply_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apply_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="apply_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="approved_remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="approved_remarks"/>
+		<property name="com.jaspersoft.studio.field.label" value="approved_remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="employee_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="employee_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="end_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="intmed_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intmed_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="intmed_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="intmed_remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intmed_remarks"/>
+		<property name="com.jaspersoft.studio.field.label" value="intmed_remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="intmedon" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intmedon"/>
+		<property name="com.jaspersoft.studio.field.label" value="intmedon"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="leave_reason" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_reason"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_reason"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="leave_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="location"/>
+		<property name="com.jaspersoft.studio.field.label" value="location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rank_code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recomend_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recomend_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="recomend_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recomend_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recomend_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="recomend_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recomend_remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recomend_remarks"/>
+		<property name="com.jaspersoft.studio.field.label" value="recomend_remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="reject_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reject_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="reject_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="reject_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reject_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="reject_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="start_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="approve_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="approve_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="approve_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="approve_on" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="approve_on"/>
+		<property name="com.jaspersoft.studio.field.label" value="approve_on"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="leave_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_leave_register"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="check_out_status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="district" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="place" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="police_station" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="post" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rank_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vill" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rank_description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rank_description"/>
+		<property name="com.jaspersoft.studio.field.label" value="rank_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_rank"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Recomended_BY" class="java.lang.String"/>
+	<field name="Approved_BY" class="java.lang.String"/>
+	<field name="mobile_no" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="LeaveID" isStartNewPage="true" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{leaveid}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="11" width="394" height="54" uuid="10cdfb93-1d55-4bc4-b8e2-e6a6498dfd68"/>
+				<textElement textAlignment="Center">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bangladesh Army]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="332" splitType="Stretch">
+			<textField>
+				<reportElement x="102" y="35" width="299" height="80" forecolor="#000066" uuid="6548ffb0-df2e-4c77-b6eb-6ccc053b9bfd"/>
+				<box leftPadding="20"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="52" y="124" width="304" height="20" forecolor="#330033" uuid="46e404a8-a944-4b78-a92b-8b8df8988e73"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LEAVE_COMMENT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="281" width="121" height="31" forecolor="#003333" uuid="03f1e764-bbe6-4b02-a5d0-136637e53486"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Recomended_BY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="281" width="121" height="31" forecolor="#003333" uuid="269f5bd8-1c15-48d2-88c1-22e823b69906"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Approved_BY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="0" width="391" height="30" forecolor="#006600" uuid="d78a3974-0f3e-4bb8-950e-58ead73a1741"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LEAVE CARD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="151" width="391" height="30" forecolor="#660066" uuid="d202cb56-3067-4f5b-a8fc-92fc5135b375"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADDRESS DURING LEAVE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="196" width="54" height="20" uuid="322c4659-708b-45fd-9eaf-83403e0fba8a"/>
+				<box leftPadding="2"/>
+				<text><![CDATA[Village  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="196" width="122" height="20" uuid="db4ff82f-0cde-4b25-97c6-d58b1fd6299b"/>
+				<box leftPadding="2"/>
+				<textFieldExpression><![CDATA[$F{vill}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="218" width="54" height="20" uuid="0cc9690c-568d-4d0e-ba64-ece35357aa09"/>
+				<box leftPadding="2"/>
+				<text><![CDATA[P.O.      :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="61" y="218" width="122" height="20" uuid="2100a540-4bb8-4e7a-b07d-e780daace503"/>
+				<box leftPadding="2"/>
+				<textFieldExpression><![CDATA[$F{post}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="207" y="196" width="71" height="20" uuid="0f116413-59ea-4145-a6d7-b7d824bb7a74"/>
+				<box leftPadding="2"/>
+				<text><![CDATA[P.S.         :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="278" y="196" width="129" height="20" uuid="af119cd2-6009-439b-a332-639e9bea2321"/>
+				<box leftPadding="2"/>
+				<textFieldExpression><![CDATA[$F{police_station}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="207" y="218" width="71" height="20" uuid="207c2cc5-9ba9-435c-bf62-76d0b88148e3"/>
+				<box leftPadding="2"/>
+				<text><![CDATA[District     :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="278" y="218" width="129" height="20" uuid="519c50d5-012b-4707-b011-804af856f3d1"/>
+				<box leftPadding="2"/>
+				<textFieldExpression><![CDATA[$F{district}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="7" y="272" width="397" height="1" uuid="7c176a16-471f-4736-95ce-6cf536815656"/>
+			</line>
+			<textField>
+				<reportElement x="207" y="245" width="166" height="20" uuid="4c4b809b-58a9-4e95-b594-f43d7156a399"/>
+				<box leftPadding="2"/>
+				<textFieldExpression><![CDATA[$F{mobile_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="102" y="245" width="81" height="20" uuid="514c6e9f-7fd3-47eb-812c-3c0a9b556b74"/>
+				<box leftPadding="2"/>
+				<text><![CDATA[Contact Number]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

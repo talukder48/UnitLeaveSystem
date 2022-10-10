@@ -1,0 +1,472 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Panacea @Inventory Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"crossorigin="anonymous" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+
+<script type="text/javascript">
+var JasonString="";
+
+	var arrHead = new Array();	
+    arrHead = ['Activity','Transaction Head', 'Crdit_Amount', 'Debit_Amount','CQ/Adv._Date','CQ/Adv._No','Narration(Reference)'];
+
+    // first create TABLE structure with the headers. 
+    function createTable() {
+        var tranTable = document.createElement('table');
+        tranTable.setAttribute('id', 'tranTable'); // table id.
+
+        var tr = tranTable.insertRow(-1);
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th'); // create table headers
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('gridContainer');
+        div.appendChild(tranTable);  // add the TABLE to the container.
+    }
+    
+    function clearTable(){
+    	var empTab = document.getElementById('tranTable');              
+    	
+    	for (row = 1; row < empTab.rows.length - 1; row++) {  
+    		empTab.deleteRow(oButton.parentNode.parentNode.row);
+    	}
+    		
+            // button -> td -> tr.        
+    }
+    
+    function removeAllrow(){
+    	var myTab = document.getElementById('tranTable');    	
+    	for (row = 1; row < myTab.rows.length ; row++) {   		
+   		myTab.deleteRow(row);
+    	}
+    }
+    function addTransaction() {
+		var empTab = document.getElementById('tranTable');
+		var rowCnt = empTab.rows.length; // table row count.
+		var tr = empTab.insertRow(rowCnt); // the table row.
+
+		for (var c = 0; c < arrHead.length; c++) {
+			var td = document.createElement('td'); // table definition.
+			td = tr.insertCell(c);
+
+			if (c == 0) { // the first column.
+				// add a button in every new row in the first column.
+				var button = document.createElement('input');
+
+				// set input attributes.
+
+				button.setAttribute("class", "btn btn-danger ml-2");
+				button.setAttribute('type', 'button');
+				button.setAttribute('value', 'Remove');
+
+				// add button's 'onclick' event.
+				button.setAttribute('onclick', 'removeRow(this)');
+
+				td.appendChild(button);
+			} else {
+				// 2nd, 3rd and 4th column, will have textbox.
+
+				if (c == 1) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document
+							.getElementById("transactionHead").value);
+					ele.setAttribute("readonly", true);
+					td.appendChild(ele);
+				}
+				if (c == 2) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+
+					if (document.getElementById("DrCrType").value == "C") {
+						ele.setAttribute('value', document
+								.getElementById("TransactionAmt").value);
+					} else {
+						ele.setAttribute('value', "0");
+					}
+
+					td.appendChild(ele);
+				}
+				if (c == 3) {
+
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					if (document.getElementById("DrCrType").value == "D") {
+						ele.setAttribute('value', document
+								.getElementById("TransactionAmt").value);
+					} else {
+						ele.setAttribute('value', "0");
+					}
+					td.appendChild(ele);
+				}
+				if (c == 4) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value',  document.getElementById("IssueDate").value);
+					td.appendChild(ele);
+				}
+				if (c == 5) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document.getElementById("CHQ_ADV_NO").value);
+					td.appendChild(ele);
+				}
+
+				if (c == 6) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document.getElementById("Narration").value);
+					td.appendChild(ele);
+				}
+				
+
+			}
+		}
+	}
+    function formJason(glCode,CrAmount,DrAmount,CHQ_ADV_NO,IssueDate,Narration){    	
+    	if(JasonString==null||JasonString==""){
+				JasonString=JasonString+"{'transactionHead':'"+glCode+"',"+
+    			"'CrAmount':'"+CrAmount+"',"+
+    			"'DrAmount':'"+DrAmount+"',"+
+    			"'CHQ_ADV_NO':'"+CHQ_ADV_NO+"',"+
+    			"'IssueDate':'"+IssueDate+"',"+
+    			"'Narration':'"+Narration+"'"+
+    			"}";
+			}
+			else{
+				JasonString=JasonString+",{'transactionHead':'"+glCode+"',"+
+    			"'CrAmount':'"+CrAmount+"',"+
+    			"'DrAmount':'"+DrAmount+"',"+
+    			"'CHQ_ADV_NO':'"+CHQ_ADV_NO+"',"+
+    			"'IssueDate':'"+IssueDate+"',"+
+    			"'Narration':'"+Narration+"'"+
+    			"}";
+			}								      	
+    }
+   
+    
+    function removeRow(oButton) {
+    	JasonString="";
+     var myTab = document.getElementById('tranTable');
+    	var arrValues = new Array();
+    	var RowIndex=oButton.parentNode.parentNode.rowIndex;
+    	alert(myTab.rows.length);
+    	for (row = 1; row < myTab.rows.length ; row++) {
+    		if(RowIndex!=row){
+    			formJason(myTab.rows.item(row).cells[1].childNodes[0].value,myTab.rows.item(row).cells[2].childNodes[0].value,myTab.rows.item(row).cells[3].childNodes[0].value,myTab.rows.item(row).cells[4].childNodes[0].value,myTab.rows.item(row).cells[5].childNodes[0].value,myTab.rows.item(row).cells[6].childNodes[0].value);    			    			
+    		}   		
+    	}
+    	document.getElementById("TransactionGrid").value=JasonString;
+    	for (row = 1; row < myTab.rows.length; row++) {  
+    		if  (oButton.parentNode.parentNode.rowIndex==row){
+    			for (c = 0; c < myTab.rows[row].cells.length; c++) { 		    		        			
+        			var element = myTab.rows.item(row).cells[c];								
+        			if (element.childNodes[0].getAttribute('type') == 'text') {    				
+        				
+        				if(c==3){
+        					document.getElementById("TransactionAmtDr").value=parseFloat(parseFloat(document.getElementById("TransactionAmtDr").value)-parseFloat(element.childNodes[0].value)).toFixed(2);
+        				}
+        				if(c==2){
+        					document.getElementById("TransactionAmtCR").value=parseFloat(parseFloat(document.getElementById("TransactionAmtCR").value)-parseFloat(element.childNodes[0].value)).toFixed(2);
+        				}        				
+        				
+        			}
+        		}	
+    		}		   				
+    	}
+    	myTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
+    }
+    
+    
+
+
+    function NarrationKeyPress(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		
+    		if (parseFloat(document.getElementById("TransactionAmt").value)>0 && document.getElementById("TransactionDate").value!=""){
+    			
+    			if(document.getElementById("Narration").value==""){
+        			document.getElementById("Narration").value="N/A";
+        		}
+        		if(document.getElementById("CHQ_ADV_NO").value==""){
+        			document.getElementById("CHQ_ADV_NO").value="N/A";
+        		}
+        		if(document.getElementById("IssueDate").value==""){
+        			document.getElementById("IssueDate").value="N/A";
+        		}
+        		
+    			
+        		if(JasonString==null||JasonString==""){
+
+        			if(document.getElementById("DrCrType").value=="D"){
+        				JasonString=JasonString+"{'transactionHead':'"+document.getElementById("transactionHead").value+"',"+
+            			"'CrAmount':'"+"0.00"+"',"+
+            			"'DrAmount':'"+document.getElementById("TransactionAmt").value+"',"+
+            			"'CHQ_ADV_NO':'"+document.getElementById("CHQ_ADV_NO").value+"',"+
+            			"'IssueDate':'"+document.getElementById("IssueDate").value+"',"+
+            			"'Narration':'"+document.getElementById("Narration").value+"'"+
+            			"}";
+        			}
+        			else{
+        				JasonString=JasonString+"{'transactionHead':'"+document.getElementById("transactionHead").value+"',"+
+            			"'CrAmount':'"+document.getElementById("TransactionAmt").value+"',"+
+            			"'DrAmount':'"+"0.00"+"',"+
+            			"'CHQ_ADV_NO':'"+document.getElementById("CHQ_ADV_NO").value+"',"+
+            			"'IssueDate':'"+document.getElementById("IssueDate").value+"',"+
+            			"'Narration':'"+document.getElementById("Narration").value+"'"+
+            			"}";
+        			}
+        								  
+        		}
+        		else{
+        			if(document.getElementById("DrCrType").value=="D"){
+        				JasonString=JasonString+",{'transactionHead':'"+document.getElementById("transactionHead").value+"',"+
+            			"'CrAmount':'"+"0.00"+"',"+
+            			"'DrAmount':'"+document.getElementById("TransactionAmt").value+"',"+
+            			"'CHQ_ADV_NO':'"+document.getElementById("CHQ_ADV_NO").value+"',"+
+            			"'IssueDate':'"+document.getElementById("IssueDate").value+"',"+
+            			"'Narration':'"+document.getElementById("Narration").value+"'"+
+            			"}";
+        			}
+        			else{
+        				JasonString=JasonString+",{'transactionHead':'"+document.getElementById("transactionHead").value+"',"+
+            			"'CrAmount':'"+document.getElementById("TransactionAmt").value+"',"+
+            			"'DrAmount':'"+"0.00"+"',"+
+            			"'CHQ_ADV_NO':'"+document.getElementById("CHQ_ADV_NO").value+"',"+
+            			"'IssueDate':'"+document.getElementById("IssueDate").value+"',"+
+            			"'Narration':'"+document.getElementById("Narration").value+"'"+
+            			"}";
+        			}
+        		}
+        		if(document.getElementById("DrCrType").value=="D"){
+        			document.getElementById("TransactionAmtDr").value=parseFloat(parseFloat(document.getElementById("TransactionAmtDr").value)
+    				+parseFloat(document.getElementById("TransactionAmt").value)).toFixed(2);
+        		}
+        		else{
+        			document.getElementById("TransactionAmtCR").value=parseFloat(parseFloat(document.getElementById("TransactionAmtCR").value)
+    				+parseFloat(document.getElementById("TransactionAmt").value)).toFixed(2);
+        		}    	
+        			
+        		addTransaction();
+        		RowClear();
+        		document.getElementById("TransactionGrid").value=JasonString;
+			}
+    		else{
+    			if (parseFloat(document.getElementById("TransactionAmt").value)<=0){
+    				alert("Transaction Amount Can not be Zero !!");
+        			document.getElementById("TransactionAmt").focus();
+    			}
+    			else{
+    				alert("Transaction Date Should Not be Blank !!");
+        			document.getElementById("TransactionDate").focus();
+    			}
+    			
+    		}	
+    	}
+    }
+    
+    
+    function ValidateIssueDate(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("Narration").focus(); 
+    	}
+    }
+    
+   
+    
+    function ValidateCQNumber(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("IssueDate").focus(); 
+    	}
+    }
+   
+    function ValidateTransactionAmount(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		if(document.getElementById("transactionHead").value!="" && parseFloat(document.getElementById("TransactionAmt").value)>0){    			
+    			document.getElementById("CHQ_ADV_NO").focus(); 	
+    		}
+    		else{
+    			if(document.getElementById("transactionHead").value==""){
+    				alert("Transaction Head Be Selected !!");
+        			document.getElementById("transactionHead").focus();	
+    			}
+    			else{
+    				alert("Transaction Amount Must Not Zero !!");
+        			document.getElementById("TransactionAmt").focus();	
+    			}
+    			
+    		}   		
+    	}
+    }
+    
+    function ValidateTransactionDate(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("TransactionAmt").focus();
+    	}
+    }
+    function ValidateTransactonHead(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("TransactionAmt").focus();
+    	}
+    }
+    
+    
+    function RowClear(){
+    	document.getElementById("Narration").value = "";		
+		document.getElementById("TransactionAmt").value="0";
+        document.getElementById("CHQ_ADV_NO").value="";
+        document.getElementById("IssueDate").value="";
+    }
+    
+	function initValues() {
+		createTable();
+		document.getElementById("TransactionAmtDr").value = "0";
+		document.getElementById("TransactionAmtCR").value = "0";
+		document.getElementById("Narration").value = "";		
+		document.getElementById("transactionHead").value = "";
+		document.getElementById("TransactionAmt").value="0";
+        document.getElementById("CHQ_ADV_NO").value="";
+        document.getElementById("IssueDate").value="";
+		document.getElementById("transactionHead").focus();
+	}
+	
+	
+</script>
+
+
+</head>
+
+
+<body onload="initValues()">
+
+	<div class="container">
+		<hr />
+		<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Add New Voucher </h3>
+		</div>
+		<hr />
+
+		<form th:action="@{/saveTransaction}" th:object="${Transaction}" method="POST" onkeydown="return event.key != 'Enter';">
+
+
+			<div class="row">
+			
+					<div class="col">
+					<select class="selectpicker" data-live-search="true" id="transactionHead" onkeydown="ValidateTransactonHead(event)">
+						<option th:each="optionType : ${gllist}"
+							th:value="${optionType.glCode}"
+							th:text="${optionType.glCode}+'-'+${optionType.glName}" class="selectpicker"  data-live-search="true">
+					</select>
+
+				</div>
+					
+					
+				<div class="col">
+						<select class="selectpicker" id="DrCrType"
+							name="DrCrType" data-live-search="true">
+							<option value="D">D-Debit</option>
+							<option value="C">C-Credit</option>
+						</select>
+
+					</div>
+					
+					<div class="col"> <input type="date" th:field="*{tran_date}" id="TransactionDate" class="date form-control col-8 mb-8" onkeydown="ValidateTransactionDate(event)" />
+				</div>
+				
+
+			</div>
+				<br>
+					
+			
+			<div class="row">
+			<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Transaction Amount" name="TransactionAmt" id="TransactionAmt" onkeydown="ValidateTransactionAmount(event)"/>
+					</div>
+					
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Cheque/Advice No" name="CHQ_ADV_NO" id="CHQ_ADV_NO" onkeydown="ValidateCQNumber(event)"/>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Issue Date" name="IssueDate" id="IssueDate" onkeydown="ValidateIssueDate(event)"/>
+					</div>
+					
+					
+					
+				</div>
+				
+				
+				
+				<div class="row">
+					
+					
+					
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder=" Reference " name="Narration" onkeydown="NarrationKeyPress(event)" id="Narration" />
+					</div>
+					
+				</div>
+			<hr />		
+			<table id="gridContainer" class="table table-bordered table-striped"></table>		
+			
+
+			<hr />
+			<div class="row">
+			<div class="col"></div>
+			   <div class="col">
+					Total Credit <input type="text" th:field="*{CreditAmt}" id="TransactionAmtCR"  class="form-control col-8 mb-8" placeholder="Credit Amount" />
+				</div>
+				<div class="col">
+					Total Debit <input type="text" th:field="*{debitAmt}" id="TransactionAmtDr"  class="form-control col-8 mb-8" placeholder="Debit Amount" />
+				</div>
+				<div class="col"></div>
+				
+			</div>
+				<input type="hidden" id="TransactionGrid" th:field="*{DataGrid}" name="TransactionGrid" >
+
+			<div class="container my-3 bg-light">
+				<div class="col-md-12 text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a th:href="@{/UserHome}" class="btn btn-warning">Cancel</a>
+				</div>
+			</div>
+
+
+		</form>
+		<hr />
+
+	</div>
+
+
+</body>
+</html>

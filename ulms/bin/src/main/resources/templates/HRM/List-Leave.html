@@ -1,0 +1,73 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ ULMS </title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+			<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Leave List</h3>
+			</div>
+			
+			<div class="container my-3 bg-light">
+		        <div class="col-md-12 text-center">
+		           <a th:href="@{/AddEmployeeLeaveData}" class="btn btn-primary">Leave Request</a>
+		            <a th:href="@{/UserHome}" class="btn btn-warning">Back Home</a>
+		        </div>
+		    </div>
+					
+			<hr/>
+
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+						<th>Leave ID</th>
+						<th>Employee Name</th>
+						<th>Reason For Leave</th>
+						<th>Application Date</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="leave: ${LeaveList}">
+						<td th:text="${leave.LeaveID}" />
+						<td th:text="${leave.EmployeeName}" />
+						<td th:text="${leave.LeaveReason}" />
+						<td th:text="${leave.ApplyDate}" />
+						
+						<td th:text="${leave.leaveStatus}" />
+						
+						
+						<td>
+							<a th:href="@{/showUpdateLeaveForm(LeaveID=${leave.LeaveID})}" class="btn btn-info">View</a>
+							<a th:href="@{/PrintLeaveForm(LeaveID=${leave.LeaveID})}" class="btn btn-info">Download</a>
+							
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

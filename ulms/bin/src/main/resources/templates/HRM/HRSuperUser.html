@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Panacea@ Unit Leave Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="/UserHome">ULMS </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav ml-auto">
+        
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/UserHome}">Home</a>
+            </li>
+                                 
+             <li class="nav-item active">
+                <a class="nav-link" th:href="@{/UserListHRM}">User Dashboard</a>
+            </li>
+            
+             <li class="nav-item active">
+                <a class="nav-link" th:href="@{/LeaveAuthorization}">Authorization</a>
+            </li>
+            
+             <li class="nav-item active">
+                <a class="nav-link" th:href="@{/EmployeeList}">Employee Dashboard</a>
+            </li>
+            
+                                
+             <li class="nav-item active" >
+                <a class="nav-link" th:href="@{/LogOut}">Log Out</a>
+            </li>
+        </ul>
+    </div>
+    
+    
+</nav>
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs mt-1" id="myTabs">
+                <li class="nav-item"><a href="#tab1" data-url="/tab1" class="nav-link active">Notice Board</a></li>
+                <li class="nav-item"><a href="#tab2" data-url="/tab2" class="nav-link">Leave Lists</a></li>
+                <li class="nav-item"><a href="#tab3" data-url="/tab3" class="nav-link">Rules of Leave</a></li>
+                
+                
+            </ul>
+
+            <div class="tab-content pt-7">
+                <div class="tab-pane active" id="tab1">Active panel</div>
+                <div class="tab-pane" id="tab2"></div>
+                <div class="tab-pane" id="tab3"></div>
+               
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<script>
+    $('#myTabs a').click(function (e) {
+        e.preventDefault();
+
+        var url = $(this).attr("data-url");
+        var href = this.hash;
+        var pane = $(this);
+
+        // ajax load from data-url
+        $(href).load(url, function (result) {
+            pane.tab('show');
+        });
+    });
+
+    // load first tab content
+    $('#tab1').load($('.nav-link.active').attr("data-url"), function (result) {
+    });
+
+</script>
+</body>
+</html>

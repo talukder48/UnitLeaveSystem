@@ -1,0 +1,64 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ Inventory Disburse List</title>		
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+	
+	</head>
+	<body>
+		
+		<div class="container">
+		
+			<h3>Disburse Lists</h3>
+			
+			<hr/>
+			<a th:href="@{/addDisburseForm}" class="btn btn-primary">Add Disburse</a>
+			<a th:href="@{/Inventory}" class="btn btn-primary">Main Menu</a>
+			<br/><br/>
+			<table class="table table-bordered table-striped" id="disburseTable">
+			
+				<thead>
+					<tr>					    
+						<th>Product Name</th>
+						<th>Disburse Date</th>
+						<th>No of Pieces</th>
+						<th>Amount(BDT)</th>
+						<th>Disburse To</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="disburse: ${disburseList}">
+						<td th:text="${disburse.productName}" />
+						<td th:text="${disburse.date}" />
+						<td th:text="${disburse.pices}" />					
+						<td th:text="${disburse.amount}" />												
+						<td th:text="${disburse.disburseTo}" />
+						
+						<td>
+							<a th:href="@{/showUpdateDisburseForm(ProductCode=${disburse.ProductCode},Branch=${disburse.Branch},Date=${disburse.date},disbursesl=${disburse.disbursesl})}" class="btn btn-info">Update</a>
+							<a th:href="@{/deleteDisburse(ProductCode=${disburse.ProductCode},Branch=${disburse.Branch},Date=${disburse.date},disbursesl=${disburse.disbursesl})}" class="btn btn-primary ml-2">Authorize</a>							
+							<a th:href="@{/deleteDisburse(ProductCode=${disburse.ProductCode},Branch=${disburse.Branch},Date=${disburse.date},disbursesl=${disburse.disbursesl})}" class="btn btn-danger ml-2">Reject</a>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#disburseTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

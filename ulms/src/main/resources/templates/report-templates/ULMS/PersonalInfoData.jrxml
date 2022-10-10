@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersonalInfoData" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b465b5df-0870-4a8a-99b4-a23c9ff4cecc">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<parameter name="P_EMPLOYEE_ID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    e.*,
+    r.rank_description,
+    t.trade_description,
+    c.company_description
+FROM
+    `hr_army_employee` e
+JOIN `hr_army_rank` r ON
+    (e.rank = r.rank_id)
+JOIN `hr_army_trade` t ON
+    (t.trade_id = e.trade)
+JOIN `hr_army_company` c ON
+    (c.company_id = e.company)
+WHERE
+    e.employee_id =  $P{P_EMPLOYEE_ID} ]]>
+	</queryString>
+	<field name="employee_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="email_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email_address"/>
+		<property name="com.jaspersoft.studio.field.label" value="email_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="employee_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="father_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="father_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="father_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="home_district" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="home_district"/>
+		<property name="com.jaspersoft.studio.field.label" value="home_district"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="mobile_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mobile_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="mobile_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="mother_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mother_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="mother_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="rank" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rank"/>
+		<property name="com.jaspersoft.studio.field.label" value="rank"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="addres" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="addres"/>
+		<property name="com.jaspersoft.studio.field.label" value="addres"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="altn_gurdian_contact" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="altn_gurdian_contact"/>
+		<property name="com.jaspersoft.studio.field.label" value="altn_gurdian_contact"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="altn_gurdian_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="altn_gurdian_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="altn_gurdian_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="blood_grgp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="blood_grgp"/>
+		<property name="com.jaspersoft.studio.field.label" value="blood_grgp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="company" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="company"/>
+		<property name="com.jaspersoft.studio.field.label" value="company"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="dob" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dob"/>
+		<property name="com.jaspersoft.studio.field.label" value="dob"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="emp_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emp_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="fathercontact" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fathercontact"/>
+		<property name="com.jaspersoft.studio.field.label" value="fathercontact"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="living_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="living_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="living_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="marital_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="marital_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="marital_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="trade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="trade"/>
+		<property name="com.jaspersoft.studio.field.label" value="trade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_employee"/>
+	</field>
+	<field name="rank_description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rank_description"/>
+		<property name="com.jaspersoft.studio.field.label" value="rank_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_rank"/>
+	</field>
+	<field name="trade_description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="trade_description"/>
+		<property name="com.jaspersoft.studio.field.label" value="trade_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_trade"/>
+	</field>
+	<field name="company_description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="company_description"/>
+		<property name="com.jaspersoft.studio.field.label" value="company_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_army_company"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="525" height="55" uuid="f47fb850-02bc-4de5-a47c-80240ffd6595"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bangladesh Army]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="55" width="524" height="25" uuid="49b2bad2-24a8-49f5-af69-c67a67c945a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jessore Cantonment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="86" width="510" height="25" uuid="5b779d87-64a0-4325-8b3b-c55ede392aff">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Personal Information]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="446" splitType="Stretch">
+			<textField>
+				<reportElement x="182" y="0" width="146" height="20" uuid="c640661f-466e-4e62-9428-7e733cd642f3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="0" width="100" height="20" uuid="909543f0-8528-43a9-8545-6450232dba03">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Army No:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="20" width="360" height="20" uuid="0a9e3cf6-e198-4d72-8095-8bbba3efc792">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{employee_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="20" width="100" height="20" uuid="a70676a9-1258-4c5c-98c3-d26349783f86">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Army Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="172" width="360" height="20" uuid="9b9205b2-0466-4f05-b4e8-710d848328ec">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{rank_description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="172" width="100" height="20" uuid="0f043074-6c7b-4782-a2e6-1a13c2cf5b28">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Army Rank:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="43" width="360" height="20" uuid="0eeb2cc5-8ed4-4b78-9ff7-42faab5fb5a6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{father_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="43" width="100" height="20" uuid="967cca25-378f-48e2-86dc-a585e1bcce36">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Father's Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="68" width="360" height="20" uuid="c638e349-c929-4287-9703-a16543615558">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mother_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="70" width="100" height="20" uuid="49141a33-5891-4f9e-af32-05ef3de5db15">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Mother's Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="95" width="230" height="20" uuid="665b8f70-9885-4c82-8f8e-7e31667d84c9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{blood_grgp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="95" width="100" height="20" uuid="77e84fa3-7eda-462e-8ffd-199103767d55">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Blood Group:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="120" width="230" height="20" uuid="b8de5a32-ef73-4cd6-9866-9107cf89f7d5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dob}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="120" width="100" height="20" uuid="78b37cd5-2438-49f0-9e82-12e1a16274a5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Date of Birth:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="144" width="510" height="25" uuid="0f1065d1-5d01-4ce0-bf70-7bc2961c7cef">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employment Information]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="196" width="260" height="25" uuid="52cecfda-e4f8-44fb-af98-17016344d558">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{trade_description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="196" width="100" height="25" uuid="292a0263-8902-4216-bd47-3e13726c325e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Trade Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="226" width="359" height="25" uuid="110b33b9-4049-4f58-a059-7fd47cb3275d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{company_description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="224" width="100" height="25" uuid="2b4f640c-a009-4064-ac8f-04d9fac571d1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Comapny Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="260" width="510" height="25" uuid="50650f54-5f5d-4e98-8e1b-de463ac3efd0">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contact Information]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="289" width="100" height="25" uuid="b01802fa-99eb-4c53-9fcf-79aca88733e7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mobile_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="289" width="88" height="25" uuid="1804304c-bc57-448e-a8fd-062767e3e5f8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Mobile No:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="318" width="100" height="25" uuid="c9504272-92fc-47e6-b661-411aa740867d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fathercontact}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="317" width="88" height="25" uuid="a063006f-b9f7-45bb-88c6-a60f341e9fe4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fathers' Contact:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="350" width="420" height="25" uuid="f364e9b2-0eb0-4642-86d9-eecbb3f11695">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{addres}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="39" y="349" width="90" height="25" uuid="6eb2998c-243a-42aa-93f1-6b2e252e3877">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Address:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="412" y="313" width="118" height="25" uuid="aba5c16a-0df0-4a11-b009-68cfa7aad8ef">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{altn_gurdian_contact}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="288" width="100" height="25" uuid="08c6ae52-2b0e-45a7-b38c-dc5a0df46c44">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Alter Gurdian:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="412" y="290" width="118" height="25" uuid="6358a020-0df9-4fc8-820a-d06272e98833">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{altn_gurdian_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="317" width="100" height="25" uuid="d866775b-3dd6-4841-ab29-3ee22ea07795">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Gurdian Contact:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="380" width="270" height="25" uuid="9eec9379-f9c5-4007-934d-132cea79104d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{home_district}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="39" y="380" width="91" height="25" uuid="e1d124ba-db9e-4637-bad6-d5460ca0323e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Home District:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="412" width="510" height="25" uuid="55f7dfee-3920-412b-8d91-c58f5f4732a1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Panacea @Unit Leave Management System</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+
+	</head>
+	<body>
+	
+		<div class="container">
+		
+			<h3>Add or View the leave details </h3>
+			<hr/>
+			
+			<form th:action="@{/SaveLeaveDetails}" th:object="${product}" method="POST">
+			
+				
+			Product ID:	<input type="text" th:field="*{productId}" class="form-control col-4 mb-4" placeholder="Product Id" />
+				
+			Product Name:	<input type="text" th:field="*{productName}" class="form-control col-4 mb-4" placeholder="Product Name" />
+				
+			Product Type:	<input type="text" th:field="*{productType}" class="form-control col-4 mb-4" placeholder="Product Type" />
+				
+			 Property Type:	<input type="text" th:field="*{propertyType}" class="form-control col-4 mb-4" placeholder="Property Type" />
+				
+				<button type="submit" class="btn btn-primary col-2">Save</button>
+				
+				<!-- <input type="hidden" th:field="*{id}" /> -->
+				
+				
+			</form>
+			<hr/>
+			<a th:href="@{/ProductList}">Back to list</a>
+		</div>
+	
+		
+	</body>
+</html>

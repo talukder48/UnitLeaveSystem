@@ -1,0 +1,71 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ Accounting Charges List</title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+		
+			
+			<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Charge Lists</h3>
+			</div>
+			
+			<div class="container my-3 bg-light">
+		        <div class="col-md-12 text-center">
+		           <a th:href="@{/addAccountingChargesForm}" class="btn btn-primary">Add New Charge</a>
+		            <a th:href="@{/UserHome}" class="btn btn-warning">Back Home</a>
+		        </div>
+		    </div>
+			
+			
+			
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+						<th>Charge Code</th>
+						<th>Charge Name</th>
+						<th>Charge Type</th>
+						<th>Vat Enable</th>
+						
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="charge: ${ChargesList}">
+						<td th:text="${charge.chgcode}" />
+						<td th:text="${charge.chgdescription}" />
+						<td th:text="${charge.chgtype}" />
+						<td th:text="${charge.vatenable}" />
+						<td>
+							<a th:href="@{/showUpdateAccountingChargesForm(chgcode=${charge.chgcode})}" class="btn btn-info">Update</a>
+							
+							<a th:href="@{/InactiveChargesByCode(chgcode=${charge.chgcode})}" class="btn btn-danger ml-2">Inactive</a>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

@@ -1,0 +1,62 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ Inventory Product List</title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+		
+			<h3>User Lists</h3>
+			
+			<hr/>
+			<a th:href="@{/addInventoryUserForm}" class="btn btn-primary">Add New User</a>
+			<a th:href="@{/Inventory}" class="btn btn-primary">Main Menu</a>
+			<br/><br/>
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+						<th>User Name</th>
+						<th> Designation</th>
+						<th>User Branch</th>
+						<th>User Type</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user: ${InventoryUserList}">
+						<td th:text="${user.userName}" />
+						<td th:text="${user.designation}" />
+						<td th:text="${user.userBranch}" />
+						<td th:text="${user.userType}" />
+						<td>
+							<a th:href="@{/showUpdateInventoryUserForm(userId=${user.userId})}" class="btn btn-info">Update</a>
+							
+							<a th:href="@{/deleteInventoryUser(userId=${user.userId})}" class="btn btn-danger ml-2">Reject</a>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

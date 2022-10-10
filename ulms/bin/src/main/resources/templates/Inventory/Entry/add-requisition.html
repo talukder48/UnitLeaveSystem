@@ -1,0 +1,401 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Panacea @Inventory Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"crossorigin="anonymous" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+
+var JasonString="";
+var Cell="<cell>";
+var clause="<clause>";
+	var arrHead = new Array();	
+    arrHead = ['Activity','Product:Description', 'Purpose of Requisition', 'No of Amount','Narration/Remarks'];
+
+    // first create TABLE structure with the headers. 
+    function createTable() {
+        var tranTable = document.createElement('table');
+        tranTable.setAttribute('id', 'tranTable'); // table id.
+
+        var tr = tranTable.insertRow(-1);
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th'); // create table headers
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('gridContainer');
+        div.appendChild(tranTable);  // add the TABLE to the container.
+    }
+    
+    function clearTable(){
+    	var empTab = document.getElementById('tranTable');              
+    	
+    	for (row = 1; row < empTab.rows.length - 1; row++) {  
+    		empTab.deleteRow(oButton.parentNode.parentNode.row);
+    	}
+    		
+            // button -> td -> tr.        
+    }
+    
+    function removeAllrow(){
+    	var myTab = document.getElementById('tranTable');    	
+    	for (row = 1; row < myTab.rows.length ; row++) {   		
+   		myTab.deleteRow(row);
+    	}
+    }
+    function addTransaction() {
+		var empTab = document.getElementById('tranTable');
+		var rowCnt = empTab.rows.length; // table row count.
+		var tr = empTab.insertRow(rowCnt); // the table row.
+
+		for (var c = 0; c < arrHead.length; c++) {
+			var td = document.createElement('td'); // table definition.
+			td = tr.insertCell(c);
+
+			if (c == 0) { // the first column.
+				// add a button in every new row in the first column.
+				var button = document.createElement('input');
+
+				// set input attributes.
+
+				button.setAttribute("class", "btn btn-danger ml-2");
+				button.setAttribute('type', 'button');
+				button.setAttribute('value', 'Remove');
+
+				// add button's 'onclick' event.
+				button.setAttribute('onclick', 'removeRow(this)');
+
+				td.appendChild(button);
+			} else {
+				// 2nd, 3rd and 4th column, will have textbox.
+
+				if (c == 1) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document.getElementById("ProductCode").value);
+					ele.setAttribute("readonly", true);
+					td.appendChild(ele);
+				}
+				if (c == 2) {
+					//	alert(document.getElementById("ProductCode").innerHTML);
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");					
+					ele.setAttribute('value', document.getElementById("Purpose").value);					
+					td.appendChild(ele);
+				}
+				
+				if (c == 3) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value',  document.getElementById("NoofItem").value);
+					td.appendChild(ele);
+				}
+				if (c == 4) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document.getElementById("Narration").value);
+					td.appendChild(ele);
+				}
+
+			}
+		}
+	}
+   
+	function formJason(ProductCode, Purpose, NoOfItem, Narration) {
+
+		JasonString = JasonString + "{'ProductCode':'" + ProductCode + "',"
+		+ "'NoofItem':'" + NoOfItem + "'," + "'Purpose':'"
+		+ Purpose + "'," + "'Narration':'" + Narration + "'" + "} <sentence> ";
+	}
+
+	function removeRow(oButton) {
+		JasonString = "";
+		var myTab = document.getElementById('tranTable');
+		var arrValues = new Array();
+		var RowIndex = oButton.parentNode.parentNode.rowIndex;
+		alert(myTab.rows.length);
+		for (row = 1; row < myTab.rows.length; row++) {
+			if (RowIndex != row) {
+				formJason(myTab.rows.item(row).cells[1].childNodes[0].value,
+						myTab.rows.item(row).cells[2].childNodes[0].value,
+						myTab.rows.item(row).cells[3].childNodes[0].value,
+						myTab.rows.item(row).cells[4].childNodes[0].value);
+				//alert(JasonString);
+			}
+			
+		}
+		//alert(JasonString);
+		document.getElementById("TransactionGrid").value = JasonString;
+		myTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
+	}
+
+	function NarrationKeyPress(event) {
+		if (event.keyCode == 13 || event.which == 13) {
+			if (parseFloat(document.getElementById("NoofItem").value) > 0
+					&& document.getElementById("RequisitionDate").value != ""
+					&& document.getElementById("ProductCode").value != "") {
+
+				if (document.getElementById("Narration").value == "") {
+					document.getElementById("Narration").value = "N/A";
+				}
+				if (document.getElementById("Purpose").value == "") {
+					document.getElementById("Purpose").value = "N/A";
+				}
+
+				JasonString = JasonString + "{'ProductCode':'"
+				+ document.getElementById("ProductCode").value + "',"
+				+ "'NoofItem':'"
+				+ document.getElementById("NoofItem").value + "',"
+				+ "'Purpose':'" + document.getElementById("Purpose").value
+				+ "'," + "'Narration':'"
+				+ document.getElementById("Narration").value + "'"
+				+ "} <sentence> ";
+
+				addTransaction();
+				RowClear();
+				document.getElementById("TransactionGrid").value = JasonString;
+			} else {
+				if (document.getElementById("ProductCode").value == "") {
+					alert("Product Must be Selected !!");
+					document.getElementById("ProductCode").focus();
+				}
+
+				else if (parseFloat(document.getElementById("NoofItem").value) <= 0) {
+					alert("Item Number Can not be Zero !!");
+					document.getElementById("NoofItem").focus();
+				}
+
+				else {
+					alert("Requisition Date Should Not be Blank !!");
+					document.getElementById("RequisitionDate").focus();
+				}
+
+			}
+		}
+	}
+
+	function NarrationKeyClick(event) {
+
+		if (parseFloat(document.getElementById("NoofItem").value) > 0
+				&& document.getElementById("RequisitionDate").value != ""
+				&& document.getElementById("ProductCode").value != "") {
+
+			if (document.getElementById("Narration").value == "") {
+				document.getElementById("Narration").value = "N/A";
+			}
+			if (document.getElementById("Purpose").value == "") {
+				document.getElementById("Purpose").value = "N/A";
+			}
+
+			JasonString = JasonString + "{'ProductCode':'"
+					+ document.getElementById("ProductCode").value + "',"
+					+ "'NoofItem':'"
+					+ document.getElementById("NoofItem").value + "',"
+					+ "'Purpose':'" + document.getElementById("Purpose").value
+					+ "'," + "'Narration':'"
+					+ document.getElementById("Narration").value + "'"
+					+ "} <sentence> ";
+
+			addTransaction();
+			RowClear();
+			document.getElementById("TransactionGrid").value = JasonString;
+		} else {
+			if (document.getElementById("ProductCode").value == "") {
+				alert("Product Must be Selected !!");
+				document.getElementById("ProductCode").focus();
+			}
+
+			else if (parseFloat(document.getElementById("NoofItem").value) <= 0) {
+				alert("Item Number Can not be Zero !!");
+				document.getElementById("NoofItem").focus();
+			}
+
+			else {
+				alert("Requisition Date Should Not be Blank !!");
+				document.getElementById("RequisitionDate").focus();
+			}
+
+		}
+
+	}
+
+	function ReqDateKeyPress(event) {
+		if (event.keyCode == 13 || event.which == 13) {
+			if (document.getElementById("RequisitionDate").value != "") {
+				document.getElementById("NoofItem").focus();
+			} else {
+				alert("Requisition Should not be blank!!");
+				document.getElementById("RequisitionDate").focus();
+			}
+
+		}
+	}
+	function RequisitionResonsKeyPress(event) {
+		if (event.keyCode == 13 || event.which == 13) {
+			if (document.getElementById("Purpose").value == "") {
+				document.getElementById("Purpose").value == "N/A"
+				document.getElementById("Narration").focus();
+			}
+
+		}
+	}
+
+	function ItemNumberKeyPress(event) {
+		if (event.keyCode == 13 || event.which == 13) {
+			if (parseFloat(document.getElementById("NoofItem").value) > 0) {
+				document.getElementById("Purpose").focus();
+			} else {
+				alert("Number of Items Must Not Zero !!");
+				document.getElementById("NoofItem").focus();
+
+			}
+		}
+	}
+
+	function ValidateTransactonHead(event) {
+		if (event.keyCode == 13 || event.which == 13) {
+			document.getElementById("NoofItem").focus();
+		}
+	}
+
+	function RowClear() {
+		document.getElementById("Narration").value = "";
+		document.getElementById("Purpose").value = "";
+		document.getElementById("ProductCode").value = "";
+		document.getElementById("NoofItem").value = "";
+	}
+
+	function initValues() {
+		createTable();
+		document.getElementById("Narration").value = "";
+		document.getElementById("ProductCode").value = "";
+		document.getElementById("NoofItem").value = "";
+		document.getElementById("ProductCode").focus();
+	}
+</script>
+
+
+</head>
+
+
+<body onload="initValues()">
+
+	<div class="container">
+		<hr />
+		<div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Add New Requisition</h3>
+		</div>
+		<hr />
+
+		<form th:action="@{/saveRequisition}" th:object="${Requisition}"
+			method="POST" onkeydown="return event.key != 'Enter';">
+
+
+			<div class="row">
+
+				<div class="col">
+					<select class="selectpicker" data-live-search="true"
+						id="ProductCode" onkeydown="ValidateTransactonHead(event)">
+						<option th:each="optionType : ${ProductList}"
+							th:value="${optionType.ProductCode}"
+							th:text="${optionType.ProductCode}+'-'+${optionType.ProductName}"
+							class="selectpicker" data-live-search="true">
+					</select>
+
+				</div>
+
+
+
+				<div class="col">
+					<input type="date" th:field="*{ReqDate}" id="RequisitionDate" value="2017-06-01"
+						class="date form-control col-8 mb-8"
+						onkeydown="ReqDateKeyPress(event)" />
+				</div>
+
+				<div class="col">
+					<input type="text" class="form-control col-8 mb-4"
+						placeholder="Nof of Item" name="NoofItem" id="NoofItem"
+						onkeydown="ItemNumberKeyPress(event)" />
+				</div>
+
+
+			</div>
+			<br>
+
+
+			<div class="row">
+				<div class="col">
+					<input type="text" class="form-control col-8 mb-4"
+						placeholder="Reasons for Requisition  " name="Purpose"
+						onkeydown="RequisitionResonsKeyPress(event)" id="Purpose" />
+				</div>
+
+
+				<div class="col">
+					<input type="text" class="form-control col-8 mb-4"
+						placeholder=" Reference " name="Narration"
+						onkeydown="NarrationKeyPress(event)" id="Narration" />
+				</div>
+
+				<div class="col">
+					<input type="button" class="btn btn-success" value="Add Row"
+						onclick="NarrationKeyClick(event)">
+
+				</div>
+			</div>
+
+			<div class="row"></div>
+			<hr />
+			<table id="gridContainer" class="table table-bordered table-striped"></table>
+
+
+			<hr />
+
+			<input type="hidden" id="TransactionGrid"
+				th:field="*{RequisitionGrid}" name="TransactionGrid">
+
+			<div class="container my-3 bg-light">
+				<div class="col-md-12 text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a th:href="@{/UserHome}" class="btn btn-warning">Cancel</a>
+				</div>
+			</div>
+
+
+		</form>
+		<hr />
+
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>Panacea@ Accounting Transaction List</title>
+		<link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"  crossorigin="anonymous" />
+
+	</head>
+	
+	<body>
+		
+		<div class="container">
+		
+			<h3>Transaction Batch Details</h3>
+			
+			<hr/> <center>	<a th:href="@{/TransactionAuthorization}" class="btn  btn-outline-primary">Transaction List</a></center>
+			<hr/>
+			<form th:action="@{/AuthorizeSingleTransaction}" th:object="${TransactionList}" method="POST">
+			<fieldset>
+			<input type="hidden" th:field="*{entity_num}">
+			<div class="row">
+			  <div class="col">
+			    <input type="text" th:field="*{tran_branch}" class="form-control col-8 mb-4" readonly />		
+			  </div>
+			  <div class="col">
+			    <input type="text" th:field="*{tran_date}" class="form-control col-8 mb-4" readonly/>	
+			  </div>
+			   <div class="col">
+			    <input type="number" th:field="*{tran_batch}" class="form-control col-8 mb-4" readonly />
+			  </div>
+			  
+			  <div class="col">
+			    <button type="submit" class="btn btn-success col-8">Authorize</button>
+			  </div>
+			</div>
+				
+				</fieldset>
+				
+			
+			</form>
+			<hr/>
+			<table class="table table-bordered table-striped" id="productTable">
+			
+				<thead>
+					<tr>
+					    <th>SL</th>
+						<th>GL Code</th>
+						<th>A/C Number</th>
+						<th>Debit Amount</th>	
+						<th>Credit Amount</th>						
+						<th>Naration</th>
+						<th>CHQ./ADV. No</th>
+						<th>Issue Date</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="transaction: ${TransactionEntityList}">
+						<td th:text="${transaction.tran_sl}" />
+						<td th:text="${transaction.glcode}" />
+						<td th:text="${transaction.account_num}" />
+						<td th:text="${transaction.debit_amt}" />
+						<td th:text="${transaction.credit_amt}" />
+						<td th:text="${transaction.narration}" />
+						<td th:text="${transaction.chq_number}" />
+						<td th:text="${transaction.chq_date}" />
+						<td>
+							<a th:href="@{/showUpdateTransactionForm(tran_branch=${transaction.tran_branch},tran_date=${transaction.tran_date},tran_batch=${transaction.tran_batch})}" class="btn btn-info">View </a>
+							
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+			
+			
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#productTable").DataTable({
+						'aoColumnDefs': [{
+        				'bSortable': false,
+        				'aTargets': [-1] /* 1st one, start by the right */
+    				}]
+				});
+			})
+		</script>
+	</body>
+	
+</html>

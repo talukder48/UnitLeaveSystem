@@ -1,0 +1,34 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Panacea @Inventory Management System</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+
+	</head>
+	<body>
+	
+		<div class="container">
+		
+			<h3>User Personal Information</h3>
+			<hr/>
+			
+			<form th:action="@{/UpdateUserInfo}" th:object="${InventoryUser}" method="POST">
+			
+				
+				User ID:		<input type="text" th:field="*{userId}" class="form-control col-4 mb-4" placeholder="User ID" readonly/>				
+				User Name:		<input type="text" th:field="*{userName}" class="form-control col-4 mb-4" placeholder="User Name" />				
+				User Password:	<input type="password" th:field="*{password}" class="form-control col-4 mb-4" placeholder="Password" />
+				Designation:	<input type="text" th:field="*{designation}" class="form-control col-4 mb-4" placeholder="Designation" />
+				
+				<button type="submit" class="btn btn-primary col-2">Update</button>
+				
+				
+				
+			</form>
+			<hr/>
+			<a th:href="@{/Inventory}">Back</a>
+		</div>
+	
+		
+	</body>
+</html>

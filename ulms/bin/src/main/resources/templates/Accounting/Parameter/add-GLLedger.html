@@ -1,0 +1,81 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Panacea @Inventory Management System</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+
+	</head>
+	<body>
+	
+		<div class="container">
+		    <hr/>
+		    <div class="container my-3 bg-light">
+			<h3 class="col-md-12 text-center">Add or Modify General Ledger to Chart of Accounts </h3>
+			</div>
+			<hr/>
+			
+			<form th:action="@{/saveGeneralLedger}" th:object="${glcodeModel}" method="POST">
+			
+			
+			<div class="row">
+					<div class="col">
+						GL Code:	<input type="text" th:field="*{glCode}" class="form-control col-8 mb-8" placeholder="GL Code" />
+					</div>
+					<div class="col">
+						GL Name:	<input type="text" th:field="*{glName}" class="form-control col-8 mb-8" placeholder="GL Name" />
+							</div>
+					<div class="col">
+						GL Type: <select th:field="*{glType}" class="form-control col-8 mb-8">
+						            <option th:each="optionType : ${typeList}" th:value="${optionType.typeKey}"  th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+						        </select>
+
+					</div>
+				</div>
+			
+			
+				<div class="row">
+					<div class="col">
+						GL Type: <select th:field="*{glLevel}" class="form-control col-8 mb-8" >
+						            <option th:each="optionType : ${levelList}" th:value="${optionType.typeKey}"  th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+						        </select>
+
+					</div>
+					<div class="col">
+						Prime GL:	<input type="text" th:field="*{primeGL}" class="form-control col-8 mb-8" placeholder="Purchase GL" />
+					</div>
+					<div class="col">
+					</div>
+					
+				</div>
+			
+				<div class="row">
+					
+										
+				</div>
+			
+			<hr/>
+			<br>
+									
+			
+			<div class="container my-3 bg-light">
+		        <div class="col-md-12 text-center">
+		            <button type="submit" class="btn btn-primary">Submit</button>
+		            <a th:href="@{/LedgerParameterList}" class="btn btn-warning">Cancel</a>
+		        </div>
+		    </div>
+			
+			
+			
+			
+				
+				
+								
+				
+			</form>
+			<hr/>
+			
+		</div>
+	
+		
+	</body>
+</html>

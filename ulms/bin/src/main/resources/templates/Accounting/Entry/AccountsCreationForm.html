@@ -1,0 +1,338 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Panacea@ Accounting Transaction List</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"crossorigin="anonymous" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+</head>
+
+<style>
+
+</style>
+
+<script type="text/javascript">
+	var arrHead = new Array();	
+    arrHead = ['Activity', 'Transaction_Head', 'Crdit_Amount', 'Debit_Amount','CQ/Adv._Date','CQ/Adv._No','Narration(Reference)'];
+
+    // first create TABLE structure with the headers. 
+    function createTable() {
+        var tranTable = document.createElement('table');
+        tranTable.setAttribute('id', 'tranTable'); // table id.
+
+        var tr = tranTable.insertRow(-1);
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th'); // create table headers
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('gridContainer');
+        div.appendChild(tranTable);  // add the TABLE to the container.
+    }
+    
+    function clearTable(){
+    	var empTab = document.getElementById('tranTable');              
+    	
+    	for (row = 1; row < empTab.rows.length - 1; row++) {  
+    		empTab.deleteRow(oButton.parentNode.parentNode.row);
+    	}
+    		
+            // button -> td -> tr.        
+    }
+    
+    function removeAllrow(){
+    	var myTab = document.getElementById('tranTable');    	
+    	for (row = 1; row < myTab.rows.length - 1; row++) {   		
+   		myTab.deleteRow(row);
+    	}
+    }
+	
+    function removeRow(oButton) {
+        //var empTab = document.getElementById('tranTable');              
+     //   empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
+     
+     var myTab = document.getElementById('tranTable');
+    	var arrValues = new Array();
+    	var dataGrid="";
+    	var transactionString=new Array();
+    	// loop through each row of the table.
+    	for (row = 1; row < myTab.rows.length - 1; row++) {  
+    		if  (oButton.parentNode.parentNode.rowIndex==row){
+    			for (c = 0; c < myTab.rows[row].cells.length; c++) { 		    		        			
+        			var arrValuesv = new Array();
+        			var element = myTab.rows.item(row).cells[c];								
+        			if (element.childNodes[0].getAttribute('type') == 'text') {    				
+        				//arrValues.push("'"+c+":" + element.childNodes[0].value + "'");
+        				//dataGrid=dataGrid+"id"+c+":"+element.childNodes[0].value;
+        				
+        				//if(c==3){
+        				//	document.getElementById("TransactionAmtDr").value=parseFloat(parseFloat(document.getElementById("TransactionAmtDr").value)-parseFloat(element.childNodes[0].value)).toFixed(2);
+        				////}
+        				//if(c==2){
+        				//	document.getElementById("TransactionAmtCR").value=parseFloat(parseFloat(document.getElementById("TransactionAmtCR").value)-parseFloat(element.childNodes[0].value)).toFixed(2);
+        				//}        				
+        				
+        			}
+        		}	
+    		}
+    		   				
+    	}
+    	myTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
+     
+    }
+    
+    
+	function addTransaction() {
+		var empTab = document.getElementById('tranTable');
+
+		var rowCnt = empTab.rows.length; // table row count.
+		var tr = empTab.insertRow(rowCnt); // the table row.
+		tr = empTab.insertRow(rowCnt);
+
+		for (var c = 0; c < arrHead.length; c++) {
+			var td = document.createElement('td'); // table definition.
+			td = tr.insertCell(c);
+
+			if (c == 0) { // the first column.
+				// add a button in every new row in the first column.
+				var button = document.createElement('input');
+
+				// set input attributes.
+
+				button.setAttribute("class", "btn btn-danger ml-2");
+				button.setAttribute('type', 'button');
+				button.setAttribute('value', 'Remove');
+
+				// add button's 'onclick' event.
+				button.setAttribute('onclick', 'removeRow(this)');
+
+				td.appendChild(button);
+			} else {
+				// 2nd, 3rd and 4th column, will have textbox.
+
+				if (c == 1) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document
+							.getElementById("transactionHead").value);
+					ele.setAttribute("readonly", true);
+					td.appendChild(ele);
+				}
+				if (c == 2) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+
+					if (document.getElementById("DrCrType").value == "C") {
+						ele.setAttribute('value', document
+								.getElementById("TransactionAmt").value);
+					} else {
+						ele.setAttribute('value', "0");
+					}
+
+					td.appendChild(ele);
+				}
+				if (c == 3) {
+
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					if (document.getElementById("DrCrType").value == "D") {
+						ele.setAttribute('value', document
+								.getElementById("TransactionAmt").value);
+					} else {
+						ele.setAttribute('value', "0");
+					}
+					td.appendChild(ele);
+				}
+				if (c == 4) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value',  document.getElementById("IssueDate").value);
+					td.appendChild(ele);
+				}
+				if (c == 5) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document.getElementById("CHQ_ADV_NO").value);
+					td.appendChild(ele);
+				}
+
+				if (c == 6) {
+					var ele = document.createElement('input');
+					ele.setAttribute('type', 'text');
+					ele.setAttribute("readonly", true);
+					ele.setAttribute("class", "form-control col-xs-2");
+					ele.setAttribute('value', document.getElementById("Narration").value);
+					td.appendChild(ele);
+				}
+
+			}
+		}
+	}
+
+
+    function NarrationKeyPress(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		addTransaction();
+    	}
+    }
+    
+    
+    function ValidateIssueDate(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("Narration").focus(); 
+    	}
+    }
+    
+    function ValidateCQNumber(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("IssueDate").focus(); 
+    	}
+    }
+   
+    function ValidateTransactionAmount(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("CHQ_ADV_NO").focus(); 
+    	}
+    }
+    
+    function ValidateTransactionDate(event){
+    	if (event.keyCode == 13 || event.which == 13) { 
+    		document.getElementById("transactionHead").focus();
+    	}
+    }
+    
+    
+	function initValues() {
+		createTable();
+		document.getElementById("TranDate").focus();
+	}
+	/*
+	$(document).ready(function() {
+		$("#gridContainer").DataTable({
+			'aoColumnDefs' : [ {
+				'bSortable' : false,
+				'aTargets' : [ -1 ]
+			// 1st one, start by the right 
+			} ]
+		});
+	})
+	*/
+	
+</script>
+
+<body onload="initValues()">
+
+	<div class="container">
+			<center><h3>Voucher Entry Form</h3></center>
+		
+<hr />
+		<form th:action="@{/SaveVoucherData}" method="POST"
+			onkeydown="return event.key != 'Enter';">
+			<fieldset>
+				<div class="row">
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Branch Code" name="BranchCode" id="BranchCode" readonly/>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Transaction Date" name="TranDate" id="TranDate" onkeydown="ValidateTransactionDate(event)"/>
+					</div>
+					<div class="col">
+						<select class="form-control col-8 mb-4" id="TransactionType"
+							name="TransactionType" data-live-search="true">
+							<option value="1">Voucher</option>
+							<option value="2">Advice</option>
+							<option value="3">Transfer</option>
+
+						</select>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<select class="selectpicker" id="transactionHead"	name="transactionHead" data-live-search="true" onkeydown="ValidateTransactionHead(event)">
+							<option value="101101">101101- SND Ledger</option>
+							<option value="101102">101102- Expenditure</option>
+						</select>
+					</div>
+					<div class="col">
+						<select class="form-control col-8 mb-4" id="DrCrType"
+							name="DrCrType" data-live-search="true">
+							<option value="D">D-Debit</option>
+							<option value="C">C-Credit</option>
+						</select>
+
+					</div>
+					<div class="col"></div>
+					
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Transaction Amount" name="TransactionAmt" id="TransactionAmt" onkeydown="ValidateTransactionAmount(event)"/>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Cheque/Advice No" name="CHQ_ADV_NO" id="CHQ_ADV_NO" onkeydown="ValidateCQNumber(event)"/>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder="Issue Date" name="IssueDate" id="IssueDate" onkeydown="ValidateIssueDate(event)"/>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<input type="text" class="form-control col-8 mb-4" placeholder=" Narration /Reference " name="Narration" onkeydown="NarrationKeyPress(event)" id="Narration" />
+					</div>
+				</div>
+			</fieldset>
+			<hr />
+			<table id="gridContainer" class="table table-bordered table-striped"></table>
+
+			<div class="form-group row">
+				<div class="col"></div>
+				<div class="col">
+					<div class="col-xs-2">
+						<label for="ex1">Total Credit</label> <input class="form-control" id="ex1" type="text" readonly>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="col-xs-2">
+						<label for="ex2">Total Debit</label> <input class="form-control" id="ex2" type="text" readonly>
+					</div>
+				</div>
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col"></div>
+			</div>
+
+			<hr />
+			
+			<input type="hidden" id="TransactionGrid" name="TransactionGrid" >
+			
+			<center><button type="submit" class="btn btn-success">Save Voucher</button></center>
+			
+		</form>
+
+	</div>
+
+</body>
+</html>

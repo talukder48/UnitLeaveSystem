@@ -1,0 +1,36 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Panacea @User  Management </title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+
+	</head>
+	<body>
+	
+		<div class="container">
+		
+			<h3>Add New User To the Panacea</h3>
+			<hr/>
+			
+			<form th:action="@{/AddUserInfo}" th:object="${usermaster}" method="POST">
+			
+				
+			User ID:	<input type="text" th:field="*{UserID}" class="form-control col-4 mb-4" placeholder="User ID" />
+				
+			User Name:	<input type="text" th:field="*{UserName}" class="form-control col-4 mb-4" placeholder="User Name" />
+				
+			User Password:	<input type="Password" th:field="*{UserPassword}" class="form-control col-4 mb-4" placeholder="Password" />
+				
+			User Branch:	<input type="text" th:field="*{UserBranch}" class="form-control col-4 mb-4" placeholder="Branch" />
+				
+				<button type="submit" class="btn btn-primary col-2">Save</button>
+				
+				
+				
+			</form>
+			<hr/>
+		</div>
+	
+		
+	</body>
+</html>
