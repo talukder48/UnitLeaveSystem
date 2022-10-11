@@ -390,6 +390,6 @@ public class LoginController {
 			return "HRM/_" + tab;
 		}
 
-		return "Inventory/_empty";
+		return "HRM/_empty";
 	}
 }
