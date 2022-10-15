@@ -11,17 +11,17 @@
     CONCAT(
         'ARMY NO :',
         k.employee_id,
-        '\nRANK :',
+        '   RANK :',
         d.rank_description,
-        '\nNAME :',
+        '   NAME :',
         k.employee_name,
-        '\nTRADE: ',
+        '   TRADE: ',
         t.trade_description,
-        '\nLEAVE FROM :',
+        '  LEAVE FROM :',
         r.start_date,
         ' UPTO ',
         r.end_date,
-        '\nFOR HIS/HER ',
+        '     FOR HIS/HER ',
         f.leave_description
     ) Description,
 
@@ -42,7 +42,10 @@ JOIN `hr_army_trade` t ON
 JOIN `hr_leave_description` f ON
     (f.leave_code = r.leave_type)
 WHERE
-    r.leaveid = $P{P_LEAVEID}]]>
+    r.leaveid = $P{P_LEAVEID}
+    
+    
+ ]]>
 	</queryString>
 	<field name="Description" class="java.lang.String"/>
 	<field name="LEAVE_COMMENT" class="java.lang.String"/>
