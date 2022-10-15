@@ -110,21 +110,21 @@
 
 				</div>	
 				
-			<div class="col">
-					Module: <select th:field="*{UserModule}"
+			  <div class="col">
+					Rank: <select th:field="*{RankCode}"
 						class="form-control col-8 mb-8">
-						<option th:each="optionType : ${ModuleList}"
-							th:value="${optionType.typeKey}"
-							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
+						<option th:each="optionType : ${Ranklist}"
+							th:value="${optionType.RankId}"
+							th:text="${optionType.RankDescription}" class="form-control col-4 mb-4">
 					</select>
 
 				</div>	
 				
 				
 				<div class="col">
-					Role: <select th:field="*{UserRole}"
+					Role: <select th:field="*{Company}"
 						class="form-control col-8 mb-8">
-						<option th:each="optionType : ${UserRoleList}"
+						<option th:each="optionType : ${companylist}"
 							th:value="${optionType.typeKey}"
 							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
 					</select>
@@ -132,6 +132,26 @@
 				</div>		
 			
 			</div>
+			
+			<div class="row">
+			
+			
+				
+			<div class="col">
+					Company: <select th:field="*{UserModule}"
+						class="form-control col-8 mb-8">
+						<option th:each="optionType : ${ModuleList}"
+							th:value="${optionType.CompanyId}"
+							th:text="${optionType.CompanyDescription}" class="form-control col-4 mb-4">
+					</select>
+
+				</div>	
+				
+					
+			
+			</div>
+			
+			
 
 			<hr />
 			<br>

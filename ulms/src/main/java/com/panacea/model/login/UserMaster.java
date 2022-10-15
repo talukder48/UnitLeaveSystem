@@ -33,8 +33,50 @@ public class UserMaster {
 	private String ConPassword;
 	@Column(name = "Activation", length = 2)
 	private String Activation;
+	@Column(name = "RankCode", length = 5)
+	private String RankCode;
+	@Column(name = "RankName", length = 50)
+	private String RankName;
+	@Column(name = "Company", length = 5)
+	private String Company;
+	@Column(name = "CompanyName", length = 50)
+	private String CompanyName;
 	
 	
+	
+	
+	public String getRankCode() {
+		return RankCode;
+	}
+
+	public void setRankCode(String rankCode) {
+		RankCode = rankCode;
+	}
+
+	public String getRankName() {
+		return RankName;
+	}
+
+	public void setRankName(String rankName) {
+		RankName = rankName;
+	}
+
+	public String getCompany() {
+		return Company;
+	}
+
+	public void setCompany(String company) {
+		Company = company;
+	}
+
+	public String getCompanyName() {
+		return CompanyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		CompanyName = companyName;
+	}
+
 	public String getActivation() {
 		return Activation;
 	}

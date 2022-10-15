@@ -121,12 +121,27 @@ public class LeaveController {
 	}
 	@Autowired
 	UserMaserRepo UserMasterRepo;
+	
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@ModelAttribute ArmyEmployee ArmyEmployee) {
 		ArmyEmployeeRepo.save(ArmyEmployee);
 		if (!UserMasterRepo.existsById(ArmyEmployee.getEmployeeId())) {			
 			UserMaster UserMaster=new UserMaster(ArmyEmployee.getEmployeeId(),ArmyEmployee.getEmployeeName(),AESEncrypt.encrypt("admin"),"0018","",ArmyEmployee.getMobileNo(),ArmyEmployee.getEmailAddress(),"LEAVE","E",ArmyEmployee.getEmployeeId(),"A");
+			UserMaster.setRankCode(ArmyEmployee.getRank());
+			UserMaster.setRankName(ArmyRankRepo.FindRank(ArmyEmployee.getRank()));
+			UserMaster.setCompany(ArmyEmployee.getCompany());
+			UserMaster.setCompanyName(ArmyCompayRepo.findcomapny(ArmyEmployee.getCompany()));
 			UserMasterRepo.save(UserMaster);			
+		}
+		else {
+			UserMaster UserMaster=UserMasterRepo.getById(ArmyEmployee.getEmployeeId());
+			UserMaster.setUserMobile(ArmyEmployee.getMobileNo());
+			UserMaster.setUserEmailId(ArmyEmployee.getEmailAddress());
+			UserMaster.setUserName(ArmyEmployee.getEmployeeName());
+			UserMaster.setRankCode(ArmyEmployee.getRank());
+			UserMaster.setRankName(ArmyRankRepo.FindRank(ArmyEmployee.getRank()));
+			UserMaster.setCompany(ArmyEmployee.getCompany());
+			UserMaster.setCompanyName(ArmyCompayRepo.findcomapny(ArmyEmployee.getCompany()));
 		}
 		
 		return "redirect:/EmployeeList";

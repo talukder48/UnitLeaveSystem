@@ -235,7 +235,10 @@ public class LoginController {
 		}
 
 	}
-
+	@Autowired
+	ArmyRankRepo ArmyRankRepo;
+	@Autowired
+	ArmyCompayRepo ArmyCompayRepo;
 	@RequestMapping("/AddNewSystemUser")
 	public ModelAndView AddNewSystemUser(Model model,HttpServletRequest request) {
 		HttpSession sessionParam = request.getSession();
@@ -260,7 +263,7 @@ public class LoginController {
 		
 		List<DropDownType> UserRoleList = new ArrayList<DropDownType>();
 		UserRoleList.add(new DropDownType("S", "Super Admin"));
-		UserRoleList.add(new DropDownType("M", "Approver"));
+		UserRoleList.add(new DropDownType("M", "Admin"));
 		UserRoleList.add(new DropDownType("E", "End User"));
 		UserRoleList.add(new DropDownType("G", "G-GatePost"));
 		
@@ -271,6 +274,9 @@ public class LoginController {
 		mav.addObject("UserRoleList", UserRoleList);
 		mav.addObject("BranchList", BranchList);
 		mav.addObject("ModuleList", ModuleList);
+		mav.addObject("Ranklist", ArmyRankRepo.findAll());
+		mav.addObject("companylist", ArmyCompayRepo.findAll());
+		
 		mav.addObject("EmployeeList", ArmyEmployeeRepo.findAll());
 		return mav;
 	}
@@ -311,6 +317,8 @@ public class LoginController {
 		mav.addObject("UserRoleList", UserRoleList);
 		mav.addObject("BranchList", BranchList);
 		mav.addObject("ModuleList", ModuleList);
+		mav.addObject("Ranklist", ArmyRankRepo.findAll());
+		mav.addObject("companylist", ArmyCompayRepo.findAll());
 		mav.addObject("EmployeeList", ArmyEmployeeRepo.findAll());
 		return mav;
 	}

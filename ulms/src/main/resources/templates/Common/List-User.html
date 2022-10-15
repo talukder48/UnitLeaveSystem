@@ -29,9 +29,9 @@
 				<thead>
 					<tr>
 						<th>User ID</th>
+						<th>Rank</th>
 						<th>User Name</th>
-						<th>Branch</th>
-						<th>Module</th>
+						<th>Company</th>
 						<th>Role</th>
 						<th>Action</th>
 					</tr>
@@ -39,9 +39,9 @@
 				<tbody>
 					<tr th:each="user: ${UserList}">
 						<td th:text="${user.UserID}" />
+						<td th:text="${user.RankName}" />
 						<td th:text="${user.UserName}" />
-						<td th:text="${user.UserBranch}" />						
-						<td th:text="${user.UserModule}" />
+						<td th:text="${user.CompanyName}" />						
 						<td th:text="${user.UserRole}" />
 																		
 						<td>
