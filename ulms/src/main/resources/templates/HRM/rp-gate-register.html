@@ -14,7 +14,7 @@
 		
 		
 		<div class="container my-3 bg-light">
-			<h3 class="col-md-12 text-center">RP NCO Register</h3>
+			<h3 class="col-md-12 text-center">Leave Register</h3>
 			</div>
 			
 			<div class="container my-3 bg-light">
@@ -30,12 +30,14 @@
 					<tr>
 						<th>SL No</th>
 						<th>Army No</th>
-						<th>Name</th>
 						<th>Rank</th>
+						<th>Name</th>
+						<th>Trade</th>
 						<th>Check-Out/Check-In Date</th>
+						<th>Leave Description</th>
 						<th>Status</th>	
 						<th>return date</th>	
-						<th>Staying Location</th>					
+						<th>Address</th>					
 					
 					</tr>
 				</thead>
@@ -43,9 +45,11 @@
 					<tr th:each="register: ${RpGateRegister}">
 						<td th:text="${register.RegisterId}" />
 						<td th:text="${register.EmployeeId}" />
+						<td th:text="${register.RankName}" />	
 						<td th:text="${register.EmployeeName}" />
-						<td th:text="${register.RankName}" />						
+						<td th:text="${register.TradeName}" />					
 						<td th:text="${register.LeaveDate}" />
+						<td th:text="${register.LeaveDescription}" />
 						<td th:text="${register.CheckOutType}" />
 						<td th:text="${register.ReturnDate}" />
 						<td th:text="${register.Place}+','+${register.Vill}+','+${register.Post}+','+${register.PoliceStation}+','+${register.District}" />

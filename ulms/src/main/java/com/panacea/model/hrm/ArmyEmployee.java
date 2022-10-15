@@ -53,6 +53,17 @@ public class ArmyEmployee {
 	private String  altnGurdianName;
 	@Column(name = "altnGurdianContact", length = 15)
 	private String  altnGurdianContact;
+	@Column(name = "RankName", length =100)
+	private String RankName;
+	@Column(name = "TradeName", length = 100)
+	private String TradeName;
+	
+	@Column(name = "CompanyName", length = 100)
+	private String CompanyName;
+	
+	
+	
+	
 	public ArmyEmployee(String employeeId, String employeeName, String fatherName, String motherName, String rank,
 			String trade, String company, String empType, String bloodGrgp, String dob, String gender,
 			String emailAddress, String mobileNo, String homeDistrict, String livingType, String addres,
@@ -79,6 +90,31 @@ public class ArmyEmployee {
 		this.altnGurdianName = altnGurdianName;
 		this.altnGurdianContact = altnGurdianContact;
 	}
+	
+	public String getCompanyName() {
+		return CompanyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		CompanyName = companyName;
+	}
+
+	public String getRankName() {
+		return RankName;
+	}
+
+	public void setRankName(String rankName) {
+		RankName = rankName;
+	}
+
+	public String getTradeName() {
+		return TradeName;
+	}
+
+	public void setTradeName(String tradeName) {
+		TradeName = tradeName;
+	}
+
 	public ArmyEmployee() {
 		super();
 		// TODO Auto-generated constructor stub

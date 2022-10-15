@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.panacea.model.hrm.ArmyEmployee;
 import com.panacea.model.hrm.LeaveRegister;
@@ -326,9 +327,37 @@ public class LoginController {
 	
 	@PostMapping("/saveNewSystemUser")
 	public String saveNewSystemUser(@ModelAttribute("usermaster") UserMaster usermaster,HttpServletRequest request) {
-		usermaster.setUserPassword(AESEncrypt.encrypt(usermaster.getUserPassword()));
-		usermaster.setActivation("A");
-		UserMasterRepo.save(usermaster);
+		HttpSession sessionParam = request.getSession();
+		String Module;
+		try {
+			 Module = sessionParam.getAttribute("Module").toString();
+		}catch(Exception e) {
+			 Module="Module Not Found";
+		}
+		if (!UserMasterRepo.existsById(usermaster.getUserID())) {			
+			usermaster.setRankName(ArmyRankRepo.FindRank(usermaster.getRankCode()));
+			usermaster.setUserPassword(AESEncrypt.encrypt(usermaster.getUserPassword()));
+			usermaster.setActivation("A");
+			usermaster.setCompany(usermaster.getCompany());
+			usermaster.setCompanyName(ArmyCompayRepo.findcomapny(usermaster.getCompany()));
+			usermaster.setUserModule(Module);
+			UserMasterRepo.save(usermaster);			
+		}
+		else {
+			UserMaster UserMaster=UserMasterRepo.getById(usermaster.getUserID());
+			UserMaster.setUserMobile(usermaster.getUserMobile());
+			UserMaster.setUserPassword(AESEncrypt.encrypt(usermaster.getUserPassword()));
+			UserMaster.setUserEmailId(usermaster.getUserEmailId());
+			UserMaster.setUserName(usermaster.getUserName());
+			UserMaster.setRankCode(usermaster.getRankCode());
+			UserMaster.setRankName(ArmyRankRepo.FindRank(usermaster.getRankCode()));
+			UserMaster.setCompany(usermaster.getCompany());
+			UserMaster.setUserRole(usermaster.getUserRole());
+			UserMaster.setCompanyName(ArmyCompayRepo.findcomapny(usermaster.getCompany()));
+			usermaster.setActivation("A");
+			UserMasterRepo.save(UserMaster);
+		}
+		
 		return "redirect:ULMSuserList";
 	}
 
@@ -367,6 +396,7 @@ public class LoginController {
 		}
 		
 		ModelAndView mav = new ModelAndView("Common/update-UserInfo");
+		mav.addObject("message","");
 		mav.addObject("UserMaster", UserMasterRepo.getById(UserId));
 		mav.addObject("EmployeeList", ArmyEmployeeRepo.findById(EmpID).get());
 		return mav;
@@ -374,17 +404,35 @@ public class LoginController {
 	
 	
 	@PostMapping("/UpdateUserInfo")
-	public String UpdateUserInfo(@ModelAttribute("usermaster") UserMaster usermaster,HttpServletRequest request) {
-		if (UserMasterRepo.existsById(usermaster.getUserID())) {	
-			UserMaster UserMaster = UserMasterRepo.findById(usermaster.getUserID()).orElseThrow();
-			UserMaster.setUserPassword(AESEncrypt.encrypt(usermaster.getUserPassword()));
-			UserMaster.setUserMobile(usermaster.getUserMobile());
-			UserMaster.setUserEmailId(usermaster.getUserEmailId());
-			UserMaster.setUserName(usermaster.getUserName());
-			UserMaster.setActivation("A");
-			UserMasterRepo.save(UserMaster);
+	public String UpdateUserInfo(@ModelAttribute("usermaster") UserMaster usermaster,HttpServletRequest request,Model model) {
+		String EmpID=null;
+		String UserId=null;
+		HttpSession sessionParam = request.getSession();
+		try {
+			EmpID = sessionParam.getAttribute("EmployeeId").toString();
+			UserId=sessionParam.getAttribute("UserId").toString();
+			
+		} catch (Exception e) {
+			EmpID= "NF";
 		}
-		return "redirect:/UserHome";
+		if(!usermaster.getConPassword().equalsIgnoreCase(usermaster.getUserPassword())) {
+			model.addAttribute("message", "Both Password Are not Matched !");
+			model.addAttribute("UserMaster", UserMasterRepo.getById(UserId));
+			model.addAttribute("EmployeeList", ArmyEmployeeRepo.findById(EmpID).get());
+			return "Common/update-UserInfo";
+		}
+		else {
+			if (UserMasterRepo.existsById(usermaster.getUserID())) {	
+				UserMaster UserMaster = UserMasterRepo.findById(usermaster.getUserID()).orElseThrow();
+				UserMaster.setUserPassword(AESEncrypt.encrypt(usermaster.getUserPassword()));
+				UserMaster.setUserMobile(usermaster.getUserMobile());
+				UserMaster.setUserEmailId(usermaster.getUserEmailId());
+				UserMaster.setUserName(usermaster.getUserName());
+				UserMaster.setActivation("A");
+				UserMasterRepo.save(UserMaster);
+			}
+			return "redirect:/UserHome";
+		}	
 	}
 	
 	

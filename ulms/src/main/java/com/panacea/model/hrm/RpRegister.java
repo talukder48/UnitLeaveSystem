@@ -50,6 +50,10 @@ public class RpRegister {
 	@Column(name = "EntyOn", length = 20)
 	private String EntyOn;
 	
+	@Column(name = "TradeName", length = 80)
+	private String TradeName;
+	@Column(name = "LeaveDescription", length = 80)
+	private String LeaveDescription;
 	
 	
 	public RpRegister() {
@@ -58,6 +62,26 @@ public class RpRegister {
 	}
 	
 	
+	public String getTradeName() {
+		return TradeName;
+	}
+
+
+	public void setTradeName(String tradeName) {
+		TradeName = tradeName;
+	}
+
+
+	public String getLeaveDescription() {
+		return LeaveDescription;
+	}
+
+
+	public void setLeaveDescription(String leaveDescription) {
+		LeaveDescription = leaveDescription;
+	}
+
+
 	public String getEmployeeName() {
 		return EmployeeName;
 	}

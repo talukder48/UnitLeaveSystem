@@ -122,9 +122,9 @@
 				
 				
 				<div class="col">
-					Role: <select th:field="*{Company}"
+					Role: <select th:field="*{UserRole}"
 						class="form-control col-8 mb-8">
-						<option th:each="optionType : ${companylist}"
+						<option th:each="optionType : ${UserRoleList}"
 							th:value="${optionType.typeKey}"
 							th:text="${optionType.typeValue}" class="form-control col-4 mb-4">
 					</select>
@@ -138,9 +138,9 @@
 			
 				
 			<div class="col">
-					Company: <select th:field="*{UserModule}"
+					Company: <select th:field="*{Company}"
 						class="form-control col-8 mb-8">
-						<option th:each="optionType : ${ModuleList}"
+						<option th:each="optionType : ${companylist}"
 							th:value="${optionType.CompanyId}"
 							th:text="${optionType.CompanyDescription}" class="form-control col-4 mb-4">
 					</select>

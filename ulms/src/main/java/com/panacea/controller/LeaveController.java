@@ -88,7 +88,7 @@ public class LeaveController {
 		List<DropDownType> typeList = new ArrayList<DropDownType>();
 		typeList.add(new DropDownType("OFFR", "Officer"));
 		typeList.add(new DropDownType("JCO", "JCO"));
-		typeList.add(new DropDownType("OR", "Others"));
+		typeList.add(new DropDownType("OR", "OR"));
 		List<DropDownType> LivingList = new ArrayList<DropDownType>();
 		LivingList.add(new DropDownType("N", "Not Applicable"));
 		LivingList.add(new DropDownType("L", "L-Line member"));
@@ -124,6 +124,9 @@ public class LeaveController {
 	
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@ModelAttribute ArmyEmployee ArmyEmployee) {
+		ArmyEmployee.setRankName(ArmyRankRepo.FindRank(ArmyEmployee.getRank()));
+		ArmyEmployee.setTradeName(ArmyTradeRepo.FindTrade(ArmyEmployee.getTrade()));
+		ArmyEmployee.setCompanyName(ArmyCompayRepo.findcomapny(ArmyEmployee.getCompany()));
 		ArmyEmployeeRepo.save(ArmyEmployee);
 		if (!UserMasterRepo.existsById(ArmyEmployee.getEmployeeId())) {			
 			UserMaster UserMaster=new UserMaster(ArmyEmployee.getEmployeeId(),ArmyEmployee.getEmployeeName(),AESEncrypt.encrypt("admin"),"0018","",ArmyEmployee.getMobileNo(),ArmyEmployee.getEmailAddress(),"LEAVE","E",ArmyEmployee.getEmployeeId(),"A");
@@ -142,6 +145,7 @@ public class LeaveController {
 			UserMaster.setRankName(ArmyRankRepo.FindRank(ArmyEmployee.getRank()));
 			UserMaster.setCompany(ArmyEmployee.getCompany());
 			UserMaster.setCompanyName(ArmyCompayRepo.findcomapny(ArmyEmployee.getCompany()));
+			UserMasterRepo.save(UserMaster);
 		}
 		
 		return "redirect:/EmployeeList";
@@ -152,7 +156,7 @@ public class LeaveController {
 		List<DropDownType> typeList = new ArrayList<DropDownType>();
 		typeList.add(new DropDownType("OFFR", "Officer"));
 		typeList.add(new DropDownType("JCO", "JCO"));
-		typeList.add(new DropDownType("OR", "Others"));
+		typeList.add(new DropDownType("OR", "OR"));
 		List<DropDownType> LivingList = new ArrayList<DropDownType>();
 		LivingList.add(new DropDownType("N", "Not Applicable"));
 		LivingList.add(new DropDownType("L", "L-Line member"));
@@ -268,6 +272,9 @@ public class LeaveController {
 			LeaveRegister.setRankCode(ArmyEmployee.getRank());
 			LeaveRegister.setRankName(ArmyRankRepo.FindRank(ArmyEmployee.getRank()));
 			LeaveRegister.setLeaveStatus("Recomendation Pending");
+			LeaveRegister.setTradeName(ArmyTradeRepo.FindTrade(ArmyEmployee.getTrade()));
+			LeaveRegister.setLeaveDescription(LeaveDescriptionRepo.FindLeaveDescription(LeaveRegister.getLeaveType()));
+			
 			leaveregisterRepo.save(LeaveRegister);
 		} else {
 
@@ -492,6 +499,8 @@ public class LeaveController {
 			RpRegister.setRegisterId(RpRegisterRepo.maxinsertnumber());
 			RpRegister.setCheckOutType("IN");
 			RpRegister.setEntyBy(UserId);
+			RpRegister.setLeaveDescription(LeaveRegister.getLeaveDescription());
+			RpRegister.setTradeName(LeaveRegister.getTradeName());
 			RpRegister.setEntyOn(new java.sql.Date(new java.util.Date().getTime())+"");
 			RpRegister.setDistrict(LeaveRegister.getDistrict());
 			RpRegister.setEmployeeName(LeaveRegister.getEmployeeName());
@@ -511,6 +520,7 @@ public class LeaveController {
 		RpRegister.setLeaveID(LeaveID);
 		LeaveRegister LeaveRegister = leaveregisterRepo.findById((LeaveID)).get();
 		RpRegister.setRankName(LeaveRegister.getRankName());
+		
 		RpRegister.setPost(LeaveRegister.getPost());
 		RpRegister.setPoliceStation(LeaveRegister.getPoliceStation());
 		RpRegister.setPlace(LeaveRegister.getPlace());
@@ -554,6 +564,8 @@ public class LeaveController {
 			LeaveRegister.setCheckOutStatus("Checked Out For Leave");
 			RpRegister.setEmployeeName(LeaveRegister.getEmployeeName());
 			RpRegister.setDistrict(LeaveRegister.getDistrict());
+			RpRegister.setLeaveDescription(LeaveRegister.getLeaveDescription());
+			RpRegister.setTradeName(LeaveRegister.getTradeName());
 			leaveregisterRepo.save(LeaveRegister);
 			RpRegisterRepo.save(RpRegister);
 			return "redirect:/AuthorizedLeaveList";

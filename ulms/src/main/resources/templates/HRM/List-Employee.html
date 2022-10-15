@@ -13,14 +13,13 @@
 		
 		
 		<div class="container my-3 bg-light">
-			<h3 class="col-md-12 text-center">Employee Lists</h3>
+			<h3 class="col-md-12 text-center">Army List</h3>
 			</div>
 			
 			<div class="container my-3 bg-light">
 		        <div class="col-md-12 text-center">
 		           <a th:href="@{/AddNewEmployeeData}" class="btn btn-primary">Add  Army</a>
 		            <a th:href="@{/UserHome}" class="btn btn-warning">Back Home</a>
-		             <a th:href="@{/PrintAllArmyList}" class="btn btn-info">Download All </a>
 		        </div>
 		    </div>
 					
@@ -30,16 +29,23 @@
 			
 				<thead>
 					<tr>
-						<th>Employee ID</th>
-						<th>Employee Name</th>
+						<th>Army  NO</th>
+						<th>Rank</th>
+						<th>Trade</th>
+						<th>Name</th>
+						<th>Company</th>
 						<th>Mobile No</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="employee: ${EmployeeList}">
-						<td th:text="${employee.EmployeeId}" />
+					<td th:text="${employee.EmployeeId}" />
+					<td th:text="${employee.RankName}" />
+					<td th:text="${employee.TradeName}" />
+						
 						<td th:text="${employee.EmployeeName}" />
+						<td th:text="${employee.CompanyName}" />
 						<td th:text="${employee.MobileNo}" />
 																		
 						<td>

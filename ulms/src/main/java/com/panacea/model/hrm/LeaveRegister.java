@@ -72,8 +72,28 @@ public class LeaveRegister {
 	private String RankName;
 	@Column(name = "CheckOutStatus", length = 80)
 	private String CheckOutStatus;
+	@Column(name = "TradeName", length = 80)
+	private String TradeName;
+	@Column(name = "LeaveDescription", length = 80)
+	private String LeaveDescription;
 	
-	
+
+	 
+	public String getTradeName() {
+		return TradeName;
+	}
+
+	public void setTradeName(String tradeName) {
+		TradeName = tradeName;
+	}
+
+	public String getLeaveDescription() {
+		return LeaveDescription;
+	}
+
+	public void setLeaveDescription(String leaveDescription) {
+		LeaveDescription = leaveDescription;
+	}
 
 	public String getCheckOutStatus() {
 		return CheckOutStatus;
