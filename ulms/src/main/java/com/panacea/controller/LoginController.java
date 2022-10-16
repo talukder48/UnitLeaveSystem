@@ -308,7 +308,7 @@ public class LoginController {
 		
 		List<DropDownType> UserRoleList = new ArrayList<DropDownType>();
 		UserRoleList.add(new DropDownType("S", "Super Admin"));
-		UserRoleList.add(new DropDownType("M", "Approver"));
+		UserRoleList.add(new DropDownType("M", "Admin"));
 		UserRoleList.add(new DropDownType("E", "End User"));
 		UserRoleList.add(new DropDownType("G", "G-GatePost"));
 		
