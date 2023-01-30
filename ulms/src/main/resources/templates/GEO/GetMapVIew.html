@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Get Location</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+		integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+		integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+	<style>
+		#map {
+			height: 600px;
+		}
+	</style>
+
+
+
+</head>
+
+<body>
+
+	<input type="hidden" id="latitude" th:value="${lat}" name="latitude">
+	<input type="hidden" id="longitude" th:value="${lon}" name="longitude">
+	<input type="hidden" id="address" th:value="${address}" name="address">
+
+	<div id="map"></div>
+
+
+	<script>
+		var x_latitude = document.getElementById("latitude").value;
+		var y_longitude = document.getElementById("longitude").value;
+		//alert(x_latitude);
+		//alert(y_longitude);
+		var map = L.map('map').setView([x_latitude, y_longitude], 13);
+
+		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+
+
+		var marker = L.marker([x_latitude, y_longitude]).addTo(map);
+		var circle = L.circle([x_latitude, y_longitude], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: 500
+		}).addTo(map);
+
+
+		marker.bindPopup(document.getElementById("address").value).openPopup();
+		circle.bindPopup("I am a circle.");
+		polygon.bindPopup("I am a polygon.");
+
+
+		var popup = L.popup()
+			.setLatLng([x_latitude, y_longitude])
+			.setContent("I am a standalone popup.")
+			.openOn(map);
+
+
+		function onMapClick(e) {
+			alert("You clicked the map at " + e.latlng);
+		}
+
+		map.on('click', onMapClick);
+
+		var popup = L.popup();
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("You clicked the map at " + e.latlng.toString())
+				.openOn(map);
+		}
+
+		map.on('click', onMapClick);
+
+	</script>
+
+</body>
+
+</html>

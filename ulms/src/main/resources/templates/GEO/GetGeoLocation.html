@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Geocoding</title>
+</head>
+<body>
+  <h1>Geocoding</h1>
+  <form action="#" th:action="@{/GetGeoLocation}" th:object="${address}" method="post">
+    <div>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" th:value="*{address}" required="required">
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
